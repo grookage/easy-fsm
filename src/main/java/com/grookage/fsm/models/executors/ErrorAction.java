@@ -13,20 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm.models.entities;
+package com.grookage.fsm.models.executors;
+
+import com.grookage.fsm.models.entities.Context;
+import com.grookage.fsm.exceptions.RunningtimeException;
 
 /**
  * Entity by : koushikr.
  * on 23/10/15.
  *
  * <p>
- *     State is an abstraction for the FSM states. The FSM implementaiton should be
- *     implementing this State interface in their enums for binding
+ *     Denotes ErrorAction. Gets Invoked whenever there is an exception thrown
  * </p>
  */
-@SuppressWarnings("unused")
-public interface State {
+public interface ErrorAction<C extends Context> extends Action {
 
-    String name();
+    void call(RunningtimeException error, C context);
 
 }

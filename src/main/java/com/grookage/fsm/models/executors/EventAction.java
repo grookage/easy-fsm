@@ -13,15 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm.models.executors;
+package com.grookage.fsm.models.executors;
+
+import com.grookage.fsm.models.entities.Context;
+import lombok.SneakyThrows;
 
 /**
  * Entity by : koushikr.
  * on 23/10/15.
  *
  * <p>
- *     Action defines the series of steps to be performed upon transitions..
+ *      Denotes EventAction. Gets Invoked whenever an action gets triggered.
  * </p>
  */
-public interface Action {
+public interface EventAction<C extends Context> extends Action {
+
+    @SneakyThrows
+    void call(C context);
+
 }

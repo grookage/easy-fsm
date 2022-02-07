@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm.services;
+package com.grookage.fsm.services;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import io.grookage.fsm.models.entities.Event;
-import io.grookage.fsm.models.entities.State;
-import io.grookage.fsm.models.entities.Transition;
+import com.grookage.fsm.models.entities.Event;
+import com.grookage.fsm.models.entities.State;
+import com.grookage.fsm.models.entities.Transition;
 import lombok.AllArgsConstructor;
 
 import java.util.Optional;

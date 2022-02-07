@@ -13,20 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm.models.entities;
+package com.grookage.fsm.models.executors;
 
 /**
  * Entity by : koushikr.
  * on 23/10/15.
  *
  * <p>
- *     An abstraction required to model Events. Your FSMEvent will need to
- *     implement this interface for binding
+ *     Action defines the series of steps to be performed upon transitions..
  * </p>
  */
-@SuppressWarnings("unused")
-public interface Event {
-
-    String name();
-
+public interface Action {
 }

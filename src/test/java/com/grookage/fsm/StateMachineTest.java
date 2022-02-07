@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm;
+package com.grookage.fsm;
 
-import io.grookage.fsm.exceptions.InvalidStateException;
-import io.grookage.fsm.exceptions.StateNotFoundException;
-import io.grookage.fsm.models.entities.Context;
+import com.grookage.fsm.models.entities.Context;
+import com.grookage.fsm.exceptions.InvalidStateException;
+import com.grookage.fsm.exceptions.StateNotFoundException;
 import org.junit.Assert;
 import org.junit.Test;
 

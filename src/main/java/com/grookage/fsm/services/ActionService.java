@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm.services;
+package com.grookage.fsm.services;
 
-import io.grookage.fsm.exceptions.RunningtimeException;
-import io.grookage.fsm.models.executors.Action;
-import io.grookage.fsm.models.executors.ErrorAction;
-import io.grookage.fsm.models.executors.EventAction;
+import com.grookage.fsm.models.entities.*;
+import com.grookage.fsm.models.executors.Action;
+import com.grookage.fsm.exceptions.RunningtimeException;
+import com.grookage.fsm.models.executors.ErrorAction;
+import com.grookage.fsm.models.executors.EventAction;
 import io.grookage.fsm.models.entities.*;
 import lombok.extern.slf4j.Slf4j;
 

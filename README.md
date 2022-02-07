@@ -20,7 +20,7 @@ Use the following maven dependency
 
 ```xml
 <dependency>
-    <groupId>io.grookage.fsm</groupId>
+    <groupId>com.grookage.fsm</groupId>
     <artifactId>fsm</artifactId>
     <version>1.0.0</version>
 </dependency>
@@ -29,7 +29,7 @@ Use the following maven dependency
 ### Build instructions
   - Clone the source:
 
-        git clone github.com/koushikr/easy-fsm
+        git clone github.com/grookage/easy-fsm
 
   - Build
 

@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm;
+package com.grookage.fsm;
 
-import io.grookage.fsm.models.entities.Context;
-import io.grookage.fsm.models.entities.Event;
-import io.grookage.fsm.models.entities.State;
-import io.grookage.fsm.models.entities.Transition;
-import io.grookage.fsm.models.executors.ErrorAction;
-import io.grookage.fsm.services.ActionService;
-import io.grookage.fsm.services.StateManagementService;
-import io.grookage.fsm.services.TransitionService;
+import com.grookage.fsm.models.entities.Context;
+import com.grookage.fsm.models.entities.Event;
+import com.grookage.fsm.models.entities.State;
+import com.grookage.fsm.models.entities.Transition;
+import com.grookage.fsm.models.executors.ErrorAction;
+import com.grookage.fsm.services.ActionService;
+import com.grookage.fsm.services.StateManagementService;
+import com.grookage.fsm.services.TransitionService;
 
 import java.util.Collection;
 

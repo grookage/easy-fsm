@@ -2,7 +2,7 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>io.grookage.fsm</groupId>
+  <groupId>com.grookage.fsm</groupId>
   <artifactId>fsm</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
@@ -30,6 +30,11 @@
             <email>rkoushik.14@gmail.com</email>
         </developer>
     </developers>
+
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/grookage/easy-fsm/issues</url>
+    </issueManagement>
 
     <properties>
         <jackson.version>2.13.1</jackson.version>
@@ -133,20 +138,14 @@
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>clojars</id>
-            <name>Clojars repository</name>
-            <url>https://clojars.org/repo</url>
-        </repository>
-    </repositories>
-
-
     <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <repository>
-            <id>clojars</id>
-            <name>Clojars repository</name>
-            <url>https://clojars.org/repo</url>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
 </project>

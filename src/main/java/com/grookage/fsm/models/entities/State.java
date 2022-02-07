@@ -13,30 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm.exceptions;
-
-import io.grookage.fsm.models.entities.Context;
-import io.grookage.fsm.models.entities.Event;
-import io.grookage.fsm.models.entities.State;
-import lombok.Getter;
+package com.grookage.fsm.models.entities;
 
 /**
  * Entity by : koushikr.
  * on 23/10/15.
+ *
+ * <p>
+ *     State is an abstraction for the FSM states. The FSM implementaiton should be
+ *     implementing this State interface in their enums for binding
+ * </p>
  */
-@Getter
-public class RunningtimeException extends Exception {
-    private static final long serialVersionUID = 4362053831847081229L;
-    private final State state;
-    private final Event event;
-    private final Context context;
+@SuppressWarnings("unused")
+public interface State {
 
-    public RunningtimeException(State state, Event event, Exception error, String message, Context context) {
-        super(message, error);
-
-        this.state = state;
-        this.event = event;
-        this.context = context;
-    }
+    String name();
 
 }

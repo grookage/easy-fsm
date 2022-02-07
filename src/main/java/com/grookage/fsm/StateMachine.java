@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm;
+package com.grookage.fsm;
 
-import io.grookage.fsm.exceptions.InvalidStateException;
-import io.grookage.fsm.exceptions.RunningtimeException;
-import io.grookage.fsm.exceptions.StateNotFoundException;
-import io.grookage.fsm.models.executors.ErrorAction;
-import io.grookage.fsm.models.executors.EventAction;
+import com.grookage.fsm.exceptions.InvalidStateException;
+import com.grookage.fsm.exceptions.RunningtimeException;
+import com.grookage.fsm.exceptions.StateNotFoundException;
+import com.grookage.fsm.models.entities.*;
+import com.grookage.fsm.models.executors.ErrorAction;
+import com.grookage.fsm.models.executors.EventAction;
+import com.grookage.fsm.services.ActionService;
+import com.grookage.fsm.services.StateManagementService;
+import com.grookage.fsm.services.TransitionService;
 import io.grookage.fsm.models.entities.*;
-import io.grookage.fsm.services.ActionService;
-import io.grookage.fsm.services.StateManagementService;
-import io.grookage.fsm.services.TransitionService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -162,7 +163,7 @@ public class StateMachine<C extends Context> {
      *     <li>Make sure there are no transitions defined from the endstate</li>
      * </ul>
      */
-    public void validate() throws InvalidStateException{
+    public void validate() throws InvalidStateException {
         if(Objects.isNull(stateManagementService.getFrom())) throw new InvalidStateException("No start state found");
         if(stateManagementService.getEndStates().isEmpty()) throw new InvalidStateException("No end states found");
 

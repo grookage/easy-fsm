@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm;
+package com.grookage.fsm;
 
 import com.google.common.collect.Sets;
-import io.grookage.fsm.models.entities.Context;
-import io.grookage.fsm.models.entities.Event;
-import io.grookage.fsm.models.entities.State;
+import com.grookage.fsm.models.entities.Context;
+import com.grookage.fsm.models.entities.Event;
+import com.grookage.fsm.models.entities.State;
 
 /**
  * Entity by : koushikr.
