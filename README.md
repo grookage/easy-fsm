@@ -1,4 +1,4 @@
-# easy-fsm [![Travis build status](https://travis-ci.org/grookage/easy-fsm.svg?branch=master)](https://travis-ci.org/grookage/easy-fsm)
+# easy-fsm [![Travis build status](https://app.travis-ci.com/grookage/easy-fsm.svg?branch=master)](https://app.travis-ci.com/grookage/easy-fsm)
 
 A small java state machine which would let you define events, states and their appropriate bindings.
 
