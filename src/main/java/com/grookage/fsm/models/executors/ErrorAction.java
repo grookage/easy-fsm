@@ -15,8 +15,8 @@
  */
 package com.grookage.fsm.models.executors;
 
-import com.grookage.fsm.models.entities.Context;
 import com.grookage.fsm.exceptions.RunningtimeException;
+import com.grookage.fsm.models.entities.Context;
 
 /**
  * Entity by : koushikr.

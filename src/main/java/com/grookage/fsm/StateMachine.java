@@ -24,7 +24,6 @@ import com.grookage.fsm.models.executors.EventAction;
 import com.grookage.fsm.services.ActionService;
 import com.grookage.fsm.services.StateManagementService;
 import com.grookage.fsm.services.TransitionService;
-import io.grookage.fsm.models.entities.*;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 

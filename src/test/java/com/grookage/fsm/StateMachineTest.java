@@ -15,9 +15,9 @@
  */
 package com.grookage.fsm;
 
-import com.grookage.fsm.models.entities.Context;
 import com.grookage.fsm.exceptions.InvalidStateException;
 import com.grookage.fsm.exceptions.StateNotFoundException;
+import com.grookage.fsm.models.entities.Context;
 import org.junit.Assert;
 import org.junit.Test;
 
