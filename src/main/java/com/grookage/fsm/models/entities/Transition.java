@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm.models.entities;
+package com.grookage.fsm.models.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +29,8 @@ import java.util.Objects;
  *     Denotes Transition from State from to State to when an Event event happens.
  * </p>
  */
-@AllArgsConstructor @Getter
+@AllArgsConstructor
+@Getter
 @Setter
 public class Transition {
 

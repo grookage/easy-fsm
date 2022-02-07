@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm;
+package com.grookage.fsm;
 
-import io.grookage.fsm.exceptions.InvalidStateException;
-import io.grookage.fsm.exceptions.StateNotFoundException;
-import io.grookage.fsm.models.entities.Context;
+import com.grookage.fsm.exceptions.InvalidStateException;
+import com.grookage.fsm.exceptions.StateNotFoundException;
+import com.grookage.fsm.models.entities.Context;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -46,7 +46,7 @@ public class StateMachineTest {
         stateContext.setTo(StateMachineUtility.TestState.CREATED);
         stateContext.setCausedEvent(StateMachineUtility.TestEvent.CREATE);
         StateMachine<Context> stateMachine = StateMachineUtility.getValidStateMachine();
-        stateMachine.anyTransition(context -> Assert.assertSame(context.getFrom(), StateMachineUtility.TestState.STARTED));
+        stateMachine.anyTransition(context -> Assert.assertSame(StateMachineUtility.TestState.STARTED, context.getFrom()));
         stateMachine.fire(StateMachineUtility.TestEvent.CREATE, stateContext);
     }
 
@@ -57,7 +57,7 @@ public class StateMachineTest {
         stateContext.setTo(StateMachineUtility.TestState.CREATED);
         stateContext.setCausedEvent(StateMachineUtility.TestEvent.CREATE);
         StateMachine<Context> stateMachine = StateMachineUtility.getValidStateMachine();
-        stateMachine.anyTransition(context -> Assert.assertSame(context.getFrom(), StateMachineUtility.TestState.STARTED));
+        stateMachine.anyTransition(context -> Assert.assertSame(StateMachineUtility.TestState.STARTED, context.getFrom()));
         stateMachine.fire(StateMachineUtility.TestEvent.FULFILL, stateContext);
     }
 
@@ -70,7 +70,7 @@ public class StateMachineTest {
         StateMachine<Context> stateMachine = StateMachineUtility.getValidStateMachine();
         stateMachine.forTransition(StateMachineUtility.TestEvent.CREATE,
                 StateMachineUtility.TestState.STARTED,
-                context -> Assert.assertSame(context.getFrom(), StateMachineUtility.TestState.STARTED));
+                context -> Assert.assertSame(StateMachineUtility.TestState.STARTED, context.getFrom()));
         stateMachine.fire(StateMachineUtility.TestEvent.CREATE, stateContext);
     }
 }

@@ -13,16 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm.exceptions;
+package com.grookage.fsm.exceptions;
+
+import com.grookage.fsm.models.entities.Context;
+import com.grookage.fsm.models.entities.Event;
+import com.grookage.fsm.models.entities.State;
+import lombok.Getter;
 
 /**
  * Entity by : koushikr.
  * on 23/10/15.
  */
-public class StateNotFoundException extends Exception {
+@Getter
+public class RunningtimeException extends Exception {
+    private static final long serialVersionUID = 4362053831847081229L;
+    private final State state;
+    private final Event event;
+    private final Context context;
 
-    public StateNotFoundException(String errorMessage){
-        super(errorMessage);
+    public RunningtimeException(State state, Event event, Exception error, String message, Context context) {
+        super(message, error);
+
+        this.state = state;
+        this.event = event;
+        this.context = context;
     }
 
 }

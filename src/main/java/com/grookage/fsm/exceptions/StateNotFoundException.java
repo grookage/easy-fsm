@@ -13,22 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm.models.executors;
-
-import io.grookage.fsm.models.entities.Context;
-import lombok.SneakyThrows;
+package com.grookage.fsm.exceptions;
 
 /**
  * Entity by : koushikr.
  * on 23/10/15.
- *
- * <p>
- *      Denotes EventAction. Gets Invoked whenever an action gets triggered.
- * </p>
  */
-public interface EventAction<C extends Context> extends Action {
+public class StateNotFoundException extends Exception {
 
-    @SneakyThrows
-    void call(C context);
+    public StateNotFoundException(String errorMessage){
+        super(errorMessage);
+    }
 
 }

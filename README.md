@@ -6,30 +6,20 @@ A small java state machine which would let you define events, states and their a
 >  - by Bobby Henderson, The Gospel of the Flying Spaghetti Monster
 
 ### Maven Dependency
-Use the following repository:
-
-```xml
-<repository>
-    <id>clojars</id>
-    <name>Clojars repository</name>
-    <url>https://clojars.org/repo</url>
-</repository>
-```
-
 Use the following maven dependency
 
 ```xml
 <dependency>
-    <groupId>io.grookage.fsm</groupId>
+    <groupId>com.grookage.fsm</groupId>
     <artifactId>fsm</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
 ### Build instructions
   - Clone the source:
 
-        git clone github.com/koushikr/easy-fsm
+        git clone github.com/grookage/easy-fsm
 
   - Build
 

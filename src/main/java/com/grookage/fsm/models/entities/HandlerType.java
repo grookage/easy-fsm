@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm.models.entities;
+package com.grookage.fsm.models.entities;
 
-import io.grookage.fsm.models.executors.EventAction;
+import com.grookage.fsm.models.executors.EventAction;
 
 import java.util.Objects;
 

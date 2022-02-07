@@ -13,21 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm.models.executors;
-
-import io.grookage.fsm.exceptions.RunningtimeException;
-import io.grookage.fsm.models.entities.Context;
+package com.grookage.fsm.models.entities;
 
 /**
  * Entity by : koushikr.
  * on 23/10/15.
  *
  * <p>
- *     Denotes ErrorAction. Gets Invoked whenever there is an exception thrown
+ *     An abstraction required to model Events. Your FSMEvent will need to
+ *     implement this interface for binding
  * </p>
  */
-public interface ErrorAction<C extends Context> extends Action {
+@SuppressWarnings("unused")
+public interface Event {
 
-    void call(RunningtimeException error, C context);
+    String name();
 
 }

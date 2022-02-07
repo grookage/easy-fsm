@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm;
+package com.grookage.fsm;
 
-import io.grookage.fsm.exceptions.InvalidStateException;
-import io.grookage.fsm.exceptions.RunningtimeException;
-import io.grookage.fsm.exceptions.StateNotFoundException;
-import io.grookage.fsm.models.executors.ErrorAction;
-import io.grookage.fsm.models.executors.EventAction;
-import io.grookage.fsm.models.entities.*;
-import io.grookage.fsm.services.ActionService;
-import io.grookage.fsm.services.StateManagementService;
-import io.grookage.fsm.services.TransitionService;
+import com.grookage.fsm.exceptions.InvalidStateException;
+import com.grookage.fsm.exceptions.RunningtimeException;
+import com.grookage.fsm.exceptions.StateNotFoundException;
+import com.grookage.fsm.models.entities.*;
+import com.grookage.fsm.models.executors.ErrorAction;
+import com.grookage.fsm.models.executors.EventAction;
+import com.grookage.fsm.services.ActionService;
+import com.grookage.fsm.services.StateManagementService;
+import com.grookage.fsm.services.TransitionService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -119,16 +119,16 @@ public class StateMachine<C extends Context> {
         return this;
     }
 
-    private void handleStateTransition(final Event event, final State from, final State to, final C context) {
-        actionService.handleTransition(event, from, to, context);
+    private void handleStateTransition(final Event event, final State from, final C context) {
+        actionService.handleTransition(event, from, context);
     }
 
-    private void handleLanding(final Event event, final State from,final State to, final C context) {
-        actionService.handleLanding(event, from, to, context);
+    private void handleLanding(final State from, final C context) {
+        actionService.handleLanding(from, context);
     }
 
-    private void handleTakeOff(final Event event, final State from,final State to, final C context) {
-        actionService.handleTakeOff(event, from, to, context, stateManagementService.getFrom());
+    private void handleTakeOff(final State to, final C context) {
+        actionService.handleTakeOff(to, context);
     }
 
     public Optional<Transition> getTransition(final State from, final Event event) {
@@ -146,23 +146,15 @@ public class StateMachine<C extends Context> {
         if(transition.isEmpty()) throw new StateNotFoundException("Invalid Event: " + event + " triggered while in State: " + context.getFrom() + " for " + context);
         try{
             var to = transition.get().getTo();
-            handleTakeOff(event, from, to, context);
-            handleStateTransition(event, from, to, context);
-            handleLanding(event, from, to, context);
+            handleTakeOff(to, context);
+            handleStateTransition(event, from, context);
+            handleLanding(from, context);
         }catch (Exception e){
             handleError(new RunningtimeException(from, event, e, e.getMessage(), context));
         }
     }
 
-    /**
-     * A stateMachine is said to be valid iff it meets the following conditions
-     * <ul>
-     *     <li>It should have a valid start state and a nonempty set of end states. It has to be halting</li>
-     *     <li>For all the states defined, make sure there are transitions from each one of 'em except for the end state</li>
-     *     <li>Make sure there are no transitions defined from the endstate</li>
-     * </ul>
-     */
-    public void validate() throws InvalidStateException{
+    public void validate() throws InvalidStateException {
         if(Objects.isNull(stateManagementService.getFrom())) throw new InvalidStateException("No start state found");
         if(stateManagementService.getEndStates().isEmpty()) throw new InvalidStateException("No end states found");
 

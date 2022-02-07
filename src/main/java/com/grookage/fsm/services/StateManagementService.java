@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm.services;
+package com.grookage.fsm.services;
 
 import com.google.common.collect.Sets;
-import io.grookage.fsm.models.entities.State;
+import com.grookage.fsm.models.entities.State;
 
 import java.util.Collection;
 import java.util.Set;

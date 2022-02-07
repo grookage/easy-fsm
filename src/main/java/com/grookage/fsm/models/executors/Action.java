@@ -13,31 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm.models.entities;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.io.Serializable;
+package com.grookage.fsm.models.executors;
 
 /**
  * Entity by : koushikr.
  * on 23/10/15.
  *
  * <p>
- *     Denotes the Context in which the StateMachine will function
- *     Keeps metadeta about the from and to states along with the causedEvent
+ *     Action defines the series of steps to be performed upon transitions..
  * </p>
  */
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
-public class Context implements Serializable {
-
-    private static final long serialVersionUID = 42L;
-
-    private State from;
-    private State to;
-    private Event causedEvent;
-
+public interface Action {
 }

@@ -13,20 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.grookage.fsm.models.entities;
+package com.grookage.fsm.models.entities;
+
+import lombok.*;
 
 /**
  * Entity by : koushikr.
  * on 23/10/15.
  *
  * <p>
- *     An abstraction required to model Events. Your FSMEvent will need to
- *     implement this interface for binding
+ *     Denotes the Context in which the StateMachine will function
+ *     Keeps metadeta about the from and to states along with the causedEvent
  * </p>
  */
-@SuppressWarnings("unused")
-public interface Event {
-
-    String name();
-
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class Context {
+    private State from;
+    private State to;
+    private Event causedEvent;
 }
