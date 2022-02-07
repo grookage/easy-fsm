@@ -1,4 +1,4 @@
-# easy-fsm [![Travis build status](https://travis-ci.org/grookage/easy-fsm.svg?branch=master)](https://travis-ci.org/grookage/easy-fsm)
+# easy-fsm [![Build](https://github.com/grookage/easy-fsm/actions/workflows/build.yml/badge.svg)](https://github.com/grookage/easy-fsm/actions/workflows/build.yml)
 
 A small java state machine which would let you define events, states and their appropriate bindings.
 
@@ -7,6 +7,7 @@ A small java state machine which would let you define events, states and their a
 
 ### Maven Dependency
 Use the following repository:
+
 ```xml
 <repository>
     <id>clojars</id>
@@ -15,7 +16,8 @@ Use the following repository:
 </repository>
 ```
 
-Use the following maven dependency for java11:
+Use the following maven dependency
+
 ```xml
 <dependency>
     <groupId>io.grookage.fsm</groupId>
