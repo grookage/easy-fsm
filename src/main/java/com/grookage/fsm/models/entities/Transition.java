@@ -29,7 +29,8 @@ import java.util.Objects;
  *     Denotes Transition from State from to State to when an Event event happens.
  * </p>
  */
-@AllArgsConstructor @Getter
+@AllArgsConstructor
+@Getter
 @Setter
 public class Transition {
 

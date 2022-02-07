@@ -31,14 +31,14 @@ import java.util.Objects;
  * on 23/10/15.
  *
  */
-@SuppressWarnings("ALL")
 @Slf4j
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class ActionService<C extends Context> {
 
     private final Map<HandlerType, Action> handlers;
 
     public ActionService(){
-        handlers = new HashMap();
+        handlers = new HashMap<>();
     }
 
     public void anyTransition(EventAction<C> context) {
@@ -69,7 +69,7 @@ public class ActionService<C extends Context> {
         handlers.put(new HandlerType(EventType.FINAL_STATE, null, state), context);
     }
 
-    public void handleTransition(Event event, State from, State to, C context) {
+    public void handleTransition(Event event, State from, C context) {
         var handler = handlers.get(new HandlerType(EventType.STATE_TRANSITION, null, from));
         if(!Objects.isNull(handler)) ((EventAction<C>) handler).call(context);
 
@@ -80,7 +80,7 @@ public class ActionService<C extends Context> {
         if(!Objects.isNull(handler)) ((EventAction<C>) handler).call(context);
     }
 
-    public void handleLanding(Event event, State from, State to, C context) {
+    public void handleLanding(State from, C context) {
         var handler = handlers.get(new HandlerType(EventType.AFTER_STATE_TRANSITION, null, from));
         if(!Objects.isNull(handler)) ((EventAction<C>) handler).call(context);
 
@@ -88,7 +88,7 @@ public class ActionService<C extends Context> {
         if(!Objects.isNull(handler)) ((EventAction<C>) handler).call(context);
     }
 
-    public void handleTakeOff(Event event, State from, State to, C context, State initState) {
+    public void handleTakeOff(State to, C context) {
         var handler = handlers.get(new HandlerType(EventType.BEFORE_STATE_TRANSITION, null, to));
         if(!Objects.isNull(handler)) ((EventAction<C>) handler).call(context);
 

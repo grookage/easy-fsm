@@ -26,7 +26,6 @@ import lombok.Getter;
  */
 @Getter
 public class RunningtimeException extends Exception {
-    private static final long serialVersionUID = 4362053831847081229L;
     private final State state;
     private final Event event;
     private final Context context;

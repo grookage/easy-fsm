@@ -119,16 +119,16 @@ public class StateMachine<C extends Context> {
         return this;
     }
 
-    private void handleStateTransition(final Event event, final State from, final State to, final C context) {
-        actionService.handleTransition(event, from, to, context);
+    private void handleStateTransition(final Event event, final State from, final C context) {
+        actionService.handleTransition(event, from, context);
     }
 
-    private void handleLanding(final Event event, final State from,final State to, final C context) {
-        actionService.handleLanding(event, from, to, context);
+    private void handleLanding(final State from, final C context) {
+        actionService.handleLanding(from, context);
     }
 
-    private void handleTakeOff(final Event event, final State from,final State to, final C context) {
-        actionService.handleTakeOff(event, from, to, context, stateManagementService.getFrom());
+    private void handleTakeOff(final State to, final C context) {
+        actionService.handleTakeOff(to, context);
     }
 
     public Optional<Transition> getTransition(final State from, final Event event) {
@@ -146,9 +146,9 @@ public class StateMachine<C extends Context> {
         if(transition.isEmpty()) throw new StateNotFoundException("Invalid Event: " + event + " triggered while in State: " + context.getFrom() + " for " + context);
         try{
             var to = transition.get().getTo();
-            handleTakeOff(event, from, to, context);
-            handleStateTransition(event, from, to, context);
-            handleLanding(event, from, to, context);
+            handleTakeOff(to, context);
+            handleStateTransition(event, from, context);
+            handleLanding(from, context);
         }catch (Exception e){
             handleError(new RunningtimeException(from, event, e, e.getMessage(), context));
         }
