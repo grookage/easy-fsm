@@ -6,16 +6,6 @@ A small java state machine which would let you define events, states and their a
 >  - by Bobby Henderson, The Gospel of the Flying Spaghetti Monster
 
 ### Maven Dependency
-Use the following repository:
-
-```xml
-<repository>
-    <id>clojars</id>
-    <name>Clojars repository</name>
-    <url>https://clojars.org/repo</url>
-</repository>
-```
-
 Use the following maven dependency
 
 ```xml
