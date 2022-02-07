@@ -7,6 +7,7 @@ A small java state machine which would let you define events, states and their a
 
 ### Maven Dependency
 Use the following repository:
+
 ```xml
 <repository>
     <id>clojars</id>
@@ -15,7 +16,8 @@ Use the following repository:
 </repository>
 ```
 
-Use the following maven dependency for java11:
+Use the following maven dependency
+
 ```xml
 <dependency>
     <groupId>io.grookage.fsm</groupId>
