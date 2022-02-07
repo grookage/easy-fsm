@@ -2,7 +2,7 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>io.github.fsm</groupId>
+  <groupId>io.grookage.fsm</groupId>
   <artifactId>fsm</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
@@ -17,10 +17,10 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:https://github.com/koushikr/easy-fsm.git</connection>
-        <developerConnection>scm:git:https://github.com/koushikr/easy-fsm.git</developerConnection>
+        <connection>scm:git:https://github.com/grookage/easy-fsm.git</connection>
+        <developerConnection>scm:git:https://github.com/grookage/easy-fsm.git</developerConnection>
         <tag>HEAD</tag>
-        <url>https://github.com/koushikr/easy-fsm.git</url>
+        <url>https://github.com/grookage/easy-fsm.git</url>
     </scm>
 
     <developers>
@@ -32,10 +32,12 @@
     </developers>
 
     <properties>
-        <jackson.version>2.9.9</jackson.version>
-        <lombok.version>1.18.2</lombok.version>
-        <guava.version>30.1.1-jre</guava.version>
-        <sl4j.version>1.7.32</sl4j.version>
+        <jackson.version>2.13.1</jackson.version>
+        <lombok.version>1.18.22</lombok.version>
+        <guava.version>31.0.1-jre</guava.version>
+        <sl4j.version>1.7.35</sl4j.version>
+        <sonar.organization>grookage</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
@@ -70,7 +72,7 @@
         <dependency>
           <groupId>javax.validation</groupId>
           <artifactId>validation-api</artifactId>
-          <version>1.1.0.Final</version>
+          <version>2.0.1.Final</version>
           <scope>compile</scope>
         </dependency>
 
@@ -78,7 +80,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.1</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
   </dependencies>

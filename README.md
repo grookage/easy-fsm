@@ -1,4 +1,4 @@
-# easy-fsm [![Travis build status](https://travis-ci.org/koushikr/easy-fsm.svg?branch=master)](https://travis-ci.org/koushikr/easy-fsm)
+# easy-fsm [![Travis build status](https://travis-ci.org/grookage/easy-fsm.svg?branch=master)](https://travis-ci.org/grookage/easy-fsm)
 
 A small java state machine which would let you define events, states and their appropriate bindings.
 
@@ -14,19 +14,11 @@ Use the following repository:
     <url>https://clojars.org/repo</url>
 </repository>
 ```
-Use the following maven dependency for java8: (Shall be deprecated henceforth!)
-```xml
-<dependency>
-    <groupId>io.github.fsm</groupId>
-    <artifactId>fsm</artifactId>
-    <version>0.0.2-1</version>
-</dependency>
-```
 
 Use the following maven dependency for java11:
 ```xml
 <dependency>
-    <groupId>io.github.fsm</groupId>
+    <groupId>io.grookage.fsm</groupId>
     <artifactId>fsm</artifactId>
     <version>1.0.0</version>
 </dependency>
