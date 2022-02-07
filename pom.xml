@@ -43,6 +43,9 @@
         <sl4j.version>1.7.35</sl4j.version>
         <sonar.organization>grookage</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.coverage.exclusions>
+            **com/grookage/fsm/**
+        </sonar.coverage.exclusions>
     </properties>
 
     <dependencies>
