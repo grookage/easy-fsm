@@ -12,7 +12,7 @@ Use the following maven dependency
 <dependency>
     <groupId>com.grookage.fsm</groupId>
     <artifactId>fsm</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
