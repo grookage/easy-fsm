@@ -154,14 +154,6 @@ public class StateMachine<C extends Context> {
         }
     }
 
-    /**
-     * A stateMachine is said to be valid iff it meets the following conditions
-     * <ul>
-     *     <li>It should have a valid start state and a nonempty set of end states. It has to be halting</li>
-     *     <li>For all the states defined, make sure there are transitions from each one of 'em except for the end state</li>
-     *     <li>Make sure there are no transitions defined from the endstate</li>
-     * </ul>
-     */
     public void validate() throws InvalidStateException {
         if(Objects.isNull(stateManagementService.getFrom())) throw new InvalidStateException("No start state found");
         if(stateManagementService.getEndStates().isEmpty()) throw new InvalidStateException("No end states found");
