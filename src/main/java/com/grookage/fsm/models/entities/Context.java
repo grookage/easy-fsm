@@ -17,8 +17,6 @@ package com.grookage.fsm.models.entities;
 
 import lombok.*;
 
-import java.io.Serializable;
-
 /**
  * Entity by : koushikr.
  * on 23/10/15.
