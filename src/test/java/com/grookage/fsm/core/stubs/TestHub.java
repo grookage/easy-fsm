@@ -1,7 +1,7 @@
 package com.grookage.fsm.core.stubs;
 
-import com.grookage.fsm.core.models.executors.TransitionProcessor;
 import com.grookage.fsm.core.hubs.TransitionProcessorHub;
+import com.grookage.fsm.core.models.executors.TransitionProcessor;
 import lombok.Builder;
 
 @Builder

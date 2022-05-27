@@ -1,9 +1,9 @@
 package com.grookage.fsm.core.stubs;
 
 import com.grookage.fsm.core.StateMachine;
+import com.grookage.fsm.core.hubs.TransitionProcessorHub;
 import com.grookage.fsm.core.models.executors.ErrorAction;
 import com.grookage.fsm.core.models.executors.EventAction;
-import com.grookage.fsm.core.hubs.TransitionProcessorHub;
 import lombok.Builder;
 
 public class TestMachine extends StateMachine<TestState, TestEvent, TestTransitionKey, TestContext> {

@@ -16,8 +16,8 @@
 package com.grookage.fsm.core.engine;
 
 import com.grookage.fsm.core.action.DefaultErrorAction;
-import com.grookage.fsm.core.exceptions.InvalidStateException;
 import com.grookage.fsm.core.exceptions.FsmException;
+import com.grookage.fsm.core.exceptions.InvalidStateException;
 import com.grookage.fsm.core.exceptions.StateNotFoundException;
 import com.grookage.fsm.core.models.entities.Context;
 import com.grookage.fsm.core.models.entities.Event;

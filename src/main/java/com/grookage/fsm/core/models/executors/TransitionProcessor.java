@@ -19,11 +19,8 @@ import com.grookage.fsm.core.models.entities.Context;
 import com.grookage.fsm.core.models.entities.Event;
 import com.grookage.fsm.core.models.entities.State;
 import com.grookage.fsm.core.models.entities.TransitionKey;
-import java.util.Set;
 
 public interface TransitionProcessor<S extends State, E extends Event, K extends TransitionKey, C extends Context<S, E, K>> {
-
-  Set<K> keys();
 
   void process(C context);
 

@@ -17,7 +17,6 @@ package com.grookage.fsm.core.helpers;
 
 import com.google.common.collect.Sets;
 import com.grookage.fsm.core.StateMachine;
-import com.grookage.fsm.core.engine.StateEngine;
 import com.grookage.fsm.core.stubs.TestContext;
 import com.grookage.fsm.core.stubs.TestEvent;
 import com.grookage.fsm.core.stubs.TestHub;

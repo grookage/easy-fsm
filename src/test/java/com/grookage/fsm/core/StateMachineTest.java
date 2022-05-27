@@ -15,9 +15,8 @@
  */
 package com.grookage.fsm.core;
 
-import com.grookage.fsm.core.helpers.StateMachineHelper;
 import com.grookage.fsm.core.exceptions.InvalidStateException;
-import com.grookage.fsm.core.exceptions.StateNotFoundException;
+import com.grookage.fsm.core.helpers.StateMachineHelper;
 import com.grookage.fsm.core.stubs.TestContext;
 import com.grookage.fsm.core.stubs.TestEvent;
 import com.grookage.fsm.core.stubs.TestState;
