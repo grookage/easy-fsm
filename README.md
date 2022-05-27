@@ -6,39 +6,39 @@ A small java state machine which would let you define events, states and their a
 >  - by Bobby Henderson, The Gospel of the Flying Spaghetti Monster
 
 ### Maven Dependency
+
 Use the following maven dependency
 
 ```xml
+
 <dependency>
-    <groupId>com.grookage.fsm</groupId>
-    <artifactId>fsm</artifactId>
-    <version>1.0.1</version>
+  <groupId>com.grookage.fsm</groupId>
+  <artifactId>fsm</artifactId>
+  <version>2.0.0</version>
 </dependency>
 ```
 
 ### Build instructions
-  - Clone the source:
 
-        git clone github.com/grookage/easy-fsm
+- Clone the source:
 
-  - Build
+      git clone github.com/grookage/easy-fsm
 
-        mvn install
+- Build
 
+      mvn install
 
 LICENSE
 -------
 
 Copyright 2015 Koushik R <rkoushik.14@gmail.com>.
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in
+compliance with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Unless required by applicable law or agreed to in writing, software distributed under the License is
+distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing permissions and limitations under the
+License.
