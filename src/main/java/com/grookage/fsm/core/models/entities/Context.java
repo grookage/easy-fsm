@@ -46,7 +46,7 @@ public abstract class Context<S extends State, E extends Event, K extends Transi
   private S from;
   private S to;
   private E causedEvent;
-  private Map<String, Object> data = new HashMap<>();
+  private ContextData data = new ContextData();
 
   protected Context(S from, S to, E event) {
     this.from = from;
@@ -72,7 +72,7 @@ public abstract class Context<S extends State, E extends Event, K extends Transi
       throw new IllegalArgumentException("Invalid key for context data. Key cannot be null/empty");
     }
     if (this.data == null) {
-      this.data = new HashMap<>();
+      this.data = new ContextData();
     }
     this.data.put(key.toUpperCase(), value);
   }
