@@ -48,7 +48,7 @@ public abstract class Context<S extends State, E extends Event, K extends Transi
   private E causedEvent;
   private Map<String, Object> data = new HashMap<>();
 
-  public Context(S from, S to, E event) {
+  protected Context(S from, S to, E event) {
     this.from = from;
     this.to = to;
     this.causedEvent = event;

@@ -23,6 +23,7 @@ import lombok.Getter;
 /**
  * Entity by : koushikr. on 23/10/15.
  */
+@SuppressWarnings("rawtypes")
 @Getter
 public class FsmException extends Exception {
 

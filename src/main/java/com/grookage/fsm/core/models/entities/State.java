@@ -15,6 +15,8 @@
  */
 package com.grookage.fsm.core.models.entities;
 
+import java.io.Serializable;
+
 /**
  * Entity by : koushikr. on 23/10/15.
  *
@@ -24,7 +26,7 @@ package com.grookage.fsm.core.models.entities;
  * </p>
  */
 @SuppressWarnings("unused")
-public interface State {
+public interface State extends Serializable {
 
   String name();
 

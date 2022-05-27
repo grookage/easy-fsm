@@ -45,7 +45,7 @@ public abstract class StateMachine<S extends State, E extends Event, K extends T
   private final ErrorAction<E, S, K, C> errorAction;
   private final EventAction<E, S, K, C> eventAction;
 
-  public StateMachine(
+  protected StateMachine(
       final S startState,
       final TransitionProcessorHub<S, E, K, C> transitionProcessorHub,
       final ErrorAction<E, S, K, C> errorAction,
