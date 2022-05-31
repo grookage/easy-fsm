@@ -14,7 +14,7 @@ Use the following maven dependency
 <dependency>
   <groupId>com.grookage.fsm</groupId>
   <artifactId>fsm</artifactId>
-  <version>2.0.1</version>
+  <version>2.0.2</version>
 </dependency>
 ```
 

@@ -17,9 +17,9 @@ package com.grookage.fsm.core.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Strings;
-import com.grookage.fsm.core.FsmSerDe;
 import java.io.Serializable;
 import java.util.Optional;
+import java.util.function.Function;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,16 +55,6 @@ public abstract class Context<S extends State, E extends Event, K extends Transi
   public abstract K getTransitionKey();
 
   @JsonIgnore
-  public <V> void addContext(Class<V> klass, V value) {
-    addContext(klass.getSimpleName().toUpperCase(), value);
-  }
-
-  @JsonIgnore
-  public <V> Optional<V> getContext(Class<V> tClass) {
-    return getContext(tClass.getSimpleName().toUpperCase(), tClass);
-  }
-
-  @JsonIgnore
   public <V> void addContext(String key, V value) {
     if (Strings.isNullOrEmpty(key.toUpperCase())) {
       throw new IllegalArgumentException("Invalid key for context data. Key cannot be null/empty");
@@ -76,8 +66,8 @@ public abstract class Context<S extends State, E extends Event, K extends Transi
   }
 
   @JsonIgnore
-  public <V> Optional<V> getContext(String key, Class<V> tClass) {
+  public <T> Optional<T> getContext(String key, Function<Object, Optional<T>> converter) {
     var value = this.data.get(key.toUpperCase());
-    return Optional.ofNullable(value).map(o -> FsmSerDe.convertValue(o, tClass));
+    return converter.apply(value);
   }
 }
