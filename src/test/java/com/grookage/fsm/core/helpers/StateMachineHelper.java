@@ -31,7 +31,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class StateMachineHelper {
 
-  public static StateMachine<TestState, TestEvent, TestTransitionKey, TestContext> getInvalidStateMachine() {
+  public static StateMachine<TestState, TestEvent, TestTransitionKey, TestContext> getNonEndStateEmptyTransitionInvalidStateMachine() {
     final var stateMachine = TestMachine.builder().
         startState(TestState.STARTED)
         .transitionProcessorHub(TestHub.builder().build())
@@ -43,6 +43,21 @@ public class StateMachineHelper {
             Sets.newHashSet(TestState.STARTED, TestState.IN_PROGRESS),
             TestState.FAILED)
         .end(Sets.newHashSet(TestState.COMPLETED, TestState.FAILED));
+    return stateMachine;
+  }
+
+  public static StateMachine<TestState, TestEvent, TestTransitionKey, TestContext> getEndStateTransitionsInvalidStateMachine() {
+    final var stateMachine = TestMachine.builder().
+                    startState(TestState.STARTED)
+            .transitionProcessorHub(TestHub.builder().build())
+            .build();
+    stateMachine
+            .onTransition(TestEvent.INITIATE, TestState.STARTED, TestState.CREATED)
+            .onTransition(TestEvent.MOVE_TO_COMPLETED, TestState.IN_PROGRESS, TestState.COMPLETED)
+            .onTransition(TestEvent.MOVE_TO_FAILED,
+                    Sets.newHashSet(TestState.STARTED, TestState.IN_PROGRESS, TestState.CREATED, TestState.COMPLETED),
+                    TestState.FAILED)
+            .end(Sets.newHashSet(TestState.COMPLETED, TestState.FAILED));
     return stateMachine;
   }
 

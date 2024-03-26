@@ -35,8 +35,14 @@ public class StateMachineTest {
   }
 
   @Test(expected = InvalidStateException.class)
-  public void testForInvalidStateMachine() throws InvalidStateException {
-    final var stateMachineCore = StateMachineHelper.getInvalidStateMachine();
+  public void testForNonEndStateEmptyTransitionsInvalidStateMachine() throws InvalidStateException{
+    final var stateMachineCore = StateMachineHelper.getNonEndStateEmptyTransitionInvalidStateMachine();
+    stateMachineCore.getStateEngine().validate();
+  }
+
+  @Test(expected = InvalidStateException.class)
+  public void testForEndStateTransitionsInvalidStateMachine() throws InvalidStateException{
+    final var stateMachineCore = StateMachineHelper.getEndStateTransitionsInvalidStateMachine();
     stateMachineCore.getStateEngine().validate();
   }
 
