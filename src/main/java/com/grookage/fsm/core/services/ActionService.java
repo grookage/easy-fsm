@@ -16,19 +16,15 @@
 package com.grookage.fsm.core.services;
 
 import com.grookage.fsm.core.exceptions.FsmException;
-import com.grookage.fsm.core.models.entities.Context;
-import com.grookage.fsm.core.models.entities.Event;
-import com.grookage.fsm.core.models.entities.EventType;
-import com.grookage.fsm.core.models.entities.HandlerType;
-import com.grookage.fsm.core.models.entities.State;
-import com.grookage.fsm.core.models.entities.TransitionKey;
+import com.grookage.fsm.core.models.entities.*;
 import com.grookage.fsm.core.models.executors.Action;
 import com.grookage.fsm.core.models.executors.ErrorAction;
 import com.grookage.fsm.core.models.executors.EventAction;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Entity by : koushikr. on 23/10/15.

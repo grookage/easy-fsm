@@ -19,7 +19,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.grookage.fsm.core.config.MachineBuilderConfig;
 import com.grookage.fsm.core.exceptions.InvalidStateException;
 import com.grookage.fsm.core.helpers.ResourceHelper;
-import com.grookage.fsm.core.helpers.StateMachineHelper;
 import com.grookage.fsm.core.stubs.*;
 import org.junit.Assert;
 import org.junit.Test;

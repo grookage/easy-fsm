@@ -17,13 +17,14 @@ package com.grookage.fsm.core.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Strings;
-import java.io.Serializable;
-import java.util.Optional;
-import java.util.function.Function;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Entity by : koushikr. on 23/10/15.

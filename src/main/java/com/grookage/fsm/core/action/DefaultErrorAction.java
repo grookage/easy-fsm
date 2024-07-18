@@ -21,10 +21,11 @@ import com.grookage.fsm.core.models.entities.Event;
 import com.grookage.fsm.core.models.entities.State;
 import com.grookage.fsm.core.models.entities.TransitionKey;
 import com.grookage.fsm.core.models.executors.ErrorAction;
-import java.util.Objects;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Objects;
 
 @Slf4j
 @NoArgsConstructor

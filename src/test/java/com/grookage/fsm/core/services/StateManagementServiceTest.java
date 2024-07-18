@@ -1,9 +1,10 @@
 package com.grookage.fsm.core.services;
 
 import com.grookage.fsm.core.stubs.TestState;
-import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Set;
 
 public class StateManagementServiceTest {
 

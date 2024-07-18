@@ -1,16 +1,12 @@
 package com.grookage.fsm.core.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.grookage.fsm.core.stubs.TestAction;
-import com.grookage.fsm.core.stubs.TestContext;
-import com.grookage.fsm.core.stubs.TestEvent;
-import com.grookage.fsm.core.stubs.TestState;
-import com.grookage.fsm.core.stubs.TestTransitionKey;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Function;
+import com.grookage.fsm.core.stubs.*;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Map;
+import java.util.Optional;
 
 public class ActionServiceTest {
 

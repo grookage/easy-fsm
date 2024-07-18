@@ -20,9 +20,10 @@ import com.google.common.collect.Multimap;
 import com.grookage.fsm.core.models.entities.Event;
 import com.grookage.fsm.core.models.entities.State;
 import com.grookage.fsm.core.models.entities.Transition;
+import lombok.AllArgsConstructor;
+
 import java.util.Optional;
 import java.util.function.Predicate;
-import lombok.AllArgsConstructor;
 
 /**
  * Entity by : koushikr. on 23/10/15.

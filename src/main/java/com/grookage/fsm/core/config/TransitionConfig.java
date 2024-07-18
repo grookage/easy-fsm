@@ -16,7 +16,6 @@
 package com.grookage.fsm.core.config;
 
 import com.grookage.fsm.core.models.entities.Event;
-import com.grookage.fsm.core.models.entities.HandlerType;
 import com.grookage.fsm.core.models.entities.State;
 import lombok.AllArgsConstructor;
 import lombok.Data;

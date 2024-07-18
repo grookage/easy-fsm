@@ -17,12 +17,13 @@ package com.grookage.fsm.core.services;
 
 import com.google.common.collect.Sets;
 import com.grookage.fsm.core.models.entities.State;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Entity by : koushikr. on 23/10/15.

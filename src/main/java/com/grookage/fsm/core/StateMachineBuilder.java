@@ -24,7 +24,6 @@ import com.grookage.fsm.core.models.entities.State;
 import com.grookage.fsm.core.models.entities.TransitionKey;
 import com.grookage.fsm.core.models.executors.ErrorAction;
 import com.grookage.fsm.core.models.executors.EventAction;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

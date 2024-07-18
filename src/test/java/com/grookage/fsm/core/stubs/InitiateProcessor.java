@@ -1,6 +1,7 @@
 package com.grookage.fsm.core.stubs;
 
 import com.grookage.fsm.core.models.executors.TransitionProcessor;
+
 import java.util.Map;
 import java.util.Set;
 

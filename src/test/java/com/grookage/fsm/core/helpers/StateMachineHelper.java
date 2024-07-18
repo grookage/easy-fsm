@@ -17,12 +17,7 @@ package com.grookage.fsm.core.helpers;
 
 import com.google.common.collect.Sets;
 import com.grookage.fsm.core.StateMachine;
-import com.grookage.fsm.core.stubs.TestContext;
-import com.grookage.fsm.core.stubs.TestEvent;
-import com.grookage.fsm.core.stubs.TestHub;
-import com.grookage.fsm.core.stubs.TestMachine;
-import com.grookage.fsm.core.stubs.TestState;
-import com.grookage.fsm.core.stubs.TestTransitionKey;
+import com.grookage.fsm.core.stubs.*;
 import lombok.experimental.UtilityClass;
 
 /**
