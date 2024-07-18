@@ -178,14 +178,14 @@ public class StateEngine<E extends Event, S extends State, K extends TransitionK
 
     for (S state : allStates) {
       var transitions = (Set<Transition<E, S>>) map.get(state);
-      if (isNullOrEmpty(transitions)) {
-        if (!stateManagementService.getEndStates().contains(state)) {
-          throw new InvalidStateException("state :" + state + " is not an end state but"
-              + " has no outgoing transitions");
-        } else if (stateManagementService.getEndStates().contains(state) && !isNullOrEmpty(transitions)) {
-          throw new InvalidStateException("state :" + state + " is an end state"
-              + " and cannot have any out going transition");
+      if(isNullOrEmpty(transitions)){
+        if(!stateManagementService.getEndStates().contains(state)){
+          throw new InvalidStateException("state :"+ state +" is not an end state but"
+                  + " has no outgoing transitions");
         }
+      } else if(stateManagementService.getEndStates().contains(state)){
+        throw new InvalidStateException("state :"+ state +" is an end state"
+                + " and cannot have any out going transition");
       }
     }
   }

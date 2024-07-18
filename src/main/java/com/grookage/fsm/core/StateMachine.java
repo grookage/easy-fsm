@@ -30,27 +30,33 @@ import com.grookage.fsm.core.services.ActionService;
 import com.grookage.fsm.core.services.StateManagementService;
 import com.grookage.fsm.core.services.TransitionService;
 import java.util.Collection;
+import java.util.Locale;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 @Data
 @Slf4j
 @Getter
-public abstract class StateMachine<S extends State, E extends Event, K extends TransitionKey, C extends Context<S, E, K>> {
+public class StateMachine<S extends State, E extends Event, K extends TransitionKey, C extends Context<S, E, K>> {
 
+  private final String name;
   private final StateEngine<E, S, K, C> stateEngine;
   private final TransitionProcessorHub<S, E, K, C> transitionProcessorHub;
   private final ErrorAction<E, S, K, C> errorAction;
   private final EventAction<E, S, K, C> eventAction;
 
-  protected StateMachine(
+  public StateMachine(
+      final String name,
       final S startState,
       final TransitionProcessorHub<S, E, K, C> transitionProcessorHub,
       final ErrorAction<E, S, K, C> errorAction,
       final EventAction<E, S, K, C> eventAction
   ) {
+    this.name = name.toUpperCase(Locale.ROOT);
     this.stateEngine = new StateEngine<>(
         startState,
         new TransitionService<>(),

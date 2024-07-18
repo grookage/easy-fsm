@@ -1,0 +1,18 @@
+{
+  "name" : "testMachine2",
+  "startState" : "STARTED",
+  "endStates" : ["COMPLETED", "FAILED"],
+  "transitionConfigs" : [{
+    "from" : ["STARTED"],
+    "to" : "CREATED",
+    "causedEvent" : "INITIATE"
+  }, {
+    "from" : ["CREATED"],
+    "to" : "IN_PROGRESS",
+    "causedEvent" : "MOVE_TO_PROGRESS"
+  }, {
+    "from" : ["IN_PROGRESS"],
+    "to" : "COMPLETED",
+    "causedEvent" : "MOVE_TO_COMPLETED"
+  }]
+}

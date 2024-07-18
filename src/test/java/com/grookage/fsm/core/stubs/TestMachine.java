@@ -14,6 +14,6 @@ public class TestMachine extends StateMachine<TestState, TestEvent, TestTransiti
       ErrorAction<TestEvent, TestState, TestTransitionKey, TestContext> errorAction,
       EventAction<TestEvent, TestState, TestTransitionKey, TestContext> eventAction
   ) {
-    super(startState, transitionProcessorHub, errorAction, eventAction);
+    super("test", startState, transitionProcessorHub, errorAction, eventAction);
   }
 }
