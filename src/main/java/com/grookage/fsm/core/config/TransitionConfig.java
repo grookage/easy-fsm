@@ -52,8 +52,6 @@ public class TransitionConfig<S extends State, E extends Event> {
 
     @Override
     public int hashCode() {
-        int result = causedEvent.hashCode();
-        result = 31 * result + (causedEvent != null ? causedEvent.hashCode() : 0);
-        return result;
+        return 31 * causedEvent.hashCode();
     }
 }
