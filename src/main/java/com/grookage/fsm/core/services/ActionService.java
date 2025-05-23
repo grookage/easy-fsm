@@ -108,6 +108,13 @@ public class ActionService<E extends Event, S extends State, K extends Transitio
     }
   }
 
+  public void handleFinalState(S state, C context) {
+    var handler = handlers.get(new HandlerType(EventType.FINAL_STATE, null, state));
+    if (!Objects.isNull(handler)) {
+      ((EventAction<E, S, K, C>) handler).call(context);
+    }
+  }
+
   public void handleError(FsmException error) {
     var handler = handlers.get(new HandlerType(EventType.ERROR, null, null));
     if (!Objects.isNull(handler)) {

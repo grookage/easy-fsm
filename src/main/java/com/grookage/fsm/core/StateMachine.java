@@ -86,11 +86,6 @@ public class StateMachine<S extends State, E extends Event, K extends Transition
     return this;
   }
 
-  public StateMachine<S, E, K, C> onError(final ErrorAction<E, S, K, C> eventAction) {
-    stateEngine.addError(eventAction);
-    return this;
-  }
-
   public StateMachine<S, E, K, C> onTransition(final E event, final S from, final S to) {
     addTransition(event, from, to);
     return this;
@@ -98,6 +93,41 @@ public class StateMachine<S extends State, E extends Event, K extends Transition
 
   public StateMachine<S, E, K, C> end(final Collection<S> endStates) {
     stateEngine.addEndStates(endStates);
+    return this;
+  }
+
+  public StateMachine<S, E, K, C> onBeforeAnyTransition(EventAction<E, S, K, C> action) {
+    this.stateEngine.beforeTransition(action);
+    return this;
+  }
+
+  public StateMachine<S, E, K, C> onAfterAnyTransition(EventAction<E, S, K, C> action) {
+    this.stateEngine.afterTransition(action);
+    return this;
+  }
+
+  public StateMachine<S, E, K, C> onBeforeStateTransition(S toState, EventAction<E, S, K, C> action) {
+    this.stateEngine.beforeTransitionTo(toState, action);
+    return this;
+  }
+
+  public StateMachine<S, E, K, C> onAfterStateTransition(S fromState, EventAction<E, S, K, C> action) {
+    this.stateEngine.afterTransitionFrom(fromState, action);
+    return this;
+  }
+
+  public StateMachine<S, E, K, C> onStateTransition(S fromState, EventAction<E, S, K, C> action) {
+    this.stateEngine.forTransition(fromState, action);
+    return this;
+  }
+
+  public StateMachine<S, E, K, C> onStateTransition(E event, S fromState, EventAction<E, S, K, C> action) {
+    this.stateEngine.forTransition(event, fromState, action);
+    return this;
+  }
+
+  public StateMachine<S, E, K, C> onFinalStateReached(S finalState, EventAction<E, S, K, C> action) {
+    this.stateEngine.onFinalState(finalState, action);
     return this;
   }
 

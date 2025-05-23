@@ -149,6 +149,9 @@ public class StateEngine<E extends Event, S extends State, K extends TransitionK
       handleTakeOff(to, context);
       handleStateTransition(event, from, context);
       handleLanding(from, context);
+      if (stateManagementService.getEndStates().contains(to)) {
+        actionService.handleFinalState(to, context);
+      }
     } catch (Exception e) {
       handleError(new FsmException(from, event, e, e.getMessage(), context));
     }
