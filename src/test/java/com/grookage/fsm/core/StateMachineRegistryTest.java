@@ -15,21 +15,21 @@
  */
 package com.grookage.fsm.core;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.grookage.fsm.core.config.MachineBuilderConfig;
 import com.grookage.fsm.core.helpers.ResourceHelper;
 import com.grookage.fsm.core.stubs.TestEvent;
 import com.grookage.fsm.core.stubs.TestHub;
 import com.grookage.fsm.core.stubs.TestState;
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
-public class StateMachineRegistryTest {
+class StateMachineRegistryTest {
 
     @Test
-    public void testHub() throws Exception {
+    void testHub() throws Exception {
         final var machineBuilderConfig = ResourceHelper.getResource("stateMachine.json", new TypeReference<MachineBuilderConfig<TestState, TestEvent>>() {
         });
         final var machineBuilderConfig2 = ResourceHelper.getResource("stateMachine2.json", new TypeReference<MachineBuilderConfig<TestState, TestEvent>>() {
@@ -39,9 +39,9 @@ public class StateMachineRegistryTest {
                 .withHub(machineBuilderConfig.getName(), TestHub.builder().build())
                 .withHub(machineBuilderConfig2.getName(), TestHub.builder().build())
                 .build();
-        Assert.assertNotNull(machineRegistry);
-        Assert.assertTrue(machineRegistry.getMachine("testMachine").isPresent());
-        Assert.assertTrue(machineRegistry.getMachine("testMachine2").isPresent());
-        Assert.assertTrue(machineRegistry.getMachine("testMachine3").isEmpty());
+        assertNotNull(machineRegistry);
+        assertTrue(machineRegistry.getMachine("testMachine").isPresent());
+        assertTrue(machineRegistry.getMachine("testMachine2").isPresent());
+        assertTrue(machineRegistry.getMachine("testMachine3").isEmpty());
     }
 }

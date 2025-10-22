@@ -15,23 +15,26 @@
  */
 package com.grookage.fsm.core;
 
-import com.google.common.base.Preconditions;
 import com.grookage.fsm.core.action.DefaultErrorAction;
 import com.grookage.fsm.core.engine.StateEngine;
 import com.grookage.fsm.core.hubs.TransitionProcessorHub;
-import com.grookage.fsm.core.models.entities.*;
+import com.grookage.fsm.core.models.entities.Context;
+import com.grookage.fsm.core.models.entities.Event;
+import com.grookage.fsm.core.models.entities.State;
+import com.grookage.fsm.core.models.entities.Transition;
+import com.grookage.fsm.core.models.entities.TransitionKey;
 import com.grookage.fsm.core.models.executors.ErrorAction;
 import com.grookage.fsm.core.models.executors.EventAction;
 import com.grookage.fsm.core.services.ActionService;
 import com.grookage.fsm.core.services.StateManagementService;
 import com.grookage.fsm.core.services.TransitionService;
+import java.util.Collection;
+import java.util.Locale;
+import java.util.Objects;
 import lombok.Data;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Collection;
-import java.util.Locale;
 
 @Data
 @Slf4j
@@ -103,7 +106,9 @@ public class StateMachine<S extends State, E extends Event, K extends Transition
 
   @SneakyThrows
   public void start() {
-    Preconditions.checkNotNull(stateEngine, "State machine can't be null");
+    if(Objects.isNull(stateEngine)) {
+      throw new IllegalStateException("State machine core can't be null. It seems to have not been initiated");
+    }
     this.stateEngine.validate();
     this.stateEngine.anyTransition(this.eventAction);
     this.stateEngine.addError(this.errorAction);
@@ -111,7 +116,9 @@ public class StateMachine<S extends State, E extends Event, K extends Transition
 
   @SneakyThrows
   public void fireGrace(C context) {
-    Preconditions.checkNotNull(stateEngine, "StateMachine core can't be null. It seems to have not been initiated or started");
+    if(Objects.isNull(stateEngine)) {
+      throw new IllegalStateException("State machine core can't be null. It seems to have not been initiated");
+    }
     stateEngine
         .getTransition(context.getFrom(), context.getCausedEvent())
         .ifPresent(transition -> stateEngine.fire(context.getCausedEvent(), context));
@@ -119,7 +126,9 @@ public class StateMachine<S extends State, E extends Event, K extends Transition
 
   @SneakyThrows
   public void fire(C context) {
-    Preconditions.checkNotNull(stateEngine, "StateMachine core can't be null. It seems to have not been initiated or started");
+    if(Objects.isNull(stateEngine)) {
+      throw new IllegalStateException("State machine core can't be null. It seems to have not been initiated");
+    }
     stateEngine
         .getTransition(context.getFrom(), context.getCausedEvent())
         .ifPresentOrElse(transition -> stateEngine.fire(context.getCausedEvent(), context),

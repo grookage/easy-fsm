@@ -15,35 +15,40 @@
  */
 package com.grookage.fsm.core;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.grookage.fsm.core.config.MachineBuilderConfig;
 import com.grookage.fsm.core.exceptions.InvalidStateException;
 import com.grookage.fsm.core.helpers.ResourceHelper;
-import com.grookage.fsm.core.stubs.*;
-import org.junit.Assert;
-import org.junit.Test;
+import com.grookage.fsm.core.stubs.TestContext;
+import com.grookage.fsm.core.stubs.TestEvent;
+import com.grookage.fsm.core.stubs.TestHub;
+import com.grookage.fsm.core.stubs.TestState;
+import com.grookage.fsm.core.stubs.TestTransitionKey;
+import org.junit.jupiter.api.Test;
 
-public class StateMachineBuilderTest {
+class StateMachineBuilderTest {
 
     @Test
-    public void testValidStateMachineBuilder() throws Exception {
+    void testValidStateMachineBuilder() throws Exception {
         final var machineBuilderConfig = ResourceHelper.getResource("stateMachine.json", new TypeReference<MachineBuilderConfig<TestState, TestEvent>>() {
         });
-        Assert.assertNotNull(machineBuilderConfig);
+        assertNotNull(machineBuilderConfig);
         final var stateMachine = new StateMachineBuilder<TestState, TestEvent, TestTransitionKey, TestContext>()
                 .withMachineBuilderConfig(machineBuilderConfig)
                 .withTransitionProcessorHub(TestHub.builder().build())
                 .build();
-        Assert.assertNotNull(stateMachine);
+        assertNotNull(stateMachine);
     }
 
-    @Test(expected = InvalidStateException.class)
-    public void testForInvalidStateMachine() throws Exception {
+    @Test
+    void testForInvalidStateMachine() throws Exception {
         final var machineBuilderConfig = ResourceHelper.getResource("invalidMachine.json", new TypeReference<MachineBuilderConfig<TestState, TestEvent>>() {
         });
-        new StateMachineBuilder<TestState, TestEvent, TestTransitionKey, TestContext>()
+        assertThrows(InvalidStateException.class, () -> new StateMachineBuilder<TestState, TestEvent, TestTransitionKey, TestContext>()
                 .withMachineBuilderConfig(machineBuilderConfig)
                 .withTransitionProcessorHub(TestHub.builder().build())
-                .build();
+                .build());
     }
 }

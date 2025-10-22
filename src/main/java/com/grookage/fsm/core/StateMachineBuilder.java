@@ -15,7 +15,7 @@
  */
 package com.grookage.fsm.core;
 
-import com.google.common.base.Preconditions;
+
 import com.grookage.fsm.core.config.MachineBuilderConfig;
 import com.grookage.fsm.core.hubs.TransitionProcessorHub;
 import com.grookage.fsm.core.models.entities.Context;
@@ -24,6 +24,7 @@ import com.grookage.fsm.core.models.entities.State;
 import com.grookage.fsm.core.models.entities.TransitionKey;
 import com.grookage.fsm.core.models.executors.ErrorAction;
 import com.grookage.fsm.core.models.executors.EventAction;
+import java.util.Objects;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -58,7 +59,18 @@ public class StateMachineBuilder<S extends State, E extends Event, K extends Tra
     }
 
     public StateMachine<S,E,K,C> build(){
-        Preconditions.checkNotNull(machineBuilderConfig, "Machine Builder Config can't be null");
+        if(Objects.isNull(machineBuilderConfig)){
+          throw new IllegalArgumentException("Machine Builder Config can't be null");
+        }
+        if(Objects.isNull(machineBuilderConfig.getName()) || machineBuilderConfig.getName().isBlank()){
+            throw new IllegalArgumentException("Machine name can't be null or empty");
+        }
+        if(Objects.isNull(machineBuilderConfig.getStartState())){
+            throw new IllegalArgumentException("Machine start state can't be null");
+        }
+        if(Objects.isNull(machineBuilderConfig.getEndStates()) || machineBuilderConfig.getEndStates().isEmpty()){
+            throw new IllegalArgumentException("Machine end states can't be null or empty");
+        }
         final var startState = machineBuilderConfig.getStartState();
         final var endStates = machineBuilderConfig.getEndStates();
         this.stateMachine = new StateMachine<>(machineBuilderConfig.getName(),

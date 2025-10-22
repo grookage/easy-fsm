@@ -1,22 +1,22 @@
 package com.grookage.fsm.core.services;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.grookage.fsm.core.stubs.TestState;
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.util.Set;
+import org.junit.jupiter.api.Test;
 
-public class StateManagementServiceTest {
+class StateManagementServiceTest {
 
   @Test
-  public void testStateManagementService(){
+  void testStateManagementService(){
     final var stateManagementService = new StateManagementService<TestState>();
     stateManagementService.setFrom(TestState.STARTED);
     stateManagementService.addEndStates(Set.of(TestState.COMPLETED, TestState.FAILED));
 
-    Assert.assertFalse(stateManagementService.getEndStates().isEmpty());
+    assertFalse(stateManagementService.getEndStates().isEmpty());
     final var allStates = stateManagementService.allStates();
-    Assert.assertTrue(allStates.contains(TestState.STARTED) && allStates.contains(TestState.COMPLETED) & allStates.contains(TestState.FAILED));
-    Assert.assertFalse(allStates.contains(TestState.CREATED));
+    assertTrue(allStates.contains(TestState.STARTED) && allStates.contains(TestState.COMPLETED) & allStates.contains(TestState.FAILED));
+    assertFalse(allStates.contains(TestState.CREATED));
   }
 }

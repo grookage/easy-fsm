@@ -1,19 +1,24 @@
 package com.grookage.fsm.core.services;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.grookage.fsm.core.stubs.*;
-import org.junit.Assert;
-import org.junit.Test;
-
+import com.grookage.fsm.core.stubs.TestAction;
+import com.grookage.fsm.core.stubs.TestContext;
+import com.grookage.fsm.core.stubs.TestEvent;
+import com.grookage.fsm.core.stubs.TestState;
+import com.grookage.fsm.core.stubs.TestTransitionKey;
 import java.util.Map;
 import java.util.Optional;
+import org.junit.jupiter.api.Test;
 
-public class ActionServiceTest {
+class ActionServiceTest {
 
   private static final ObjectMapper mapper = new ObjectMapper();
 
   @Test
-  public void testActionServiceEmptyTransitions(){
+  void testActionServiceEmptyTransitions(){
     final var actionService = new ActionService<TestEvent, TestState, TestTransitionKey, TestContext>();
 
     final var testContext = new TestContext();
@@ -21,11 +26,11 @@ public class ActionServiceTest {
 
     final var actionMap = testContext.getContext("action",
         o -> Optional.ofNullable(o).map(obj -> mapper.convertValue(obj, Map.class))).orElse(null);
-    Assert.assertNull(actionMap);
+    assertNull(actionMap);
   }
 
   @Test
-  public void testActionService(){
+  void testActionService(){
     final var actionService = new ActionService<TestEvent, TestState, TestTransitionKey, TestContext>();
     actionService.anyTransition(new TestAction());
 
@@ -34,7 +39,7 @@ public class ActionServiceTest {
 
     final var actionMap = testContext.getContext("action",
         o -> Optional.ofNullable(o).map(obj -> mapper.convertValue(obj, Map.class))).orElse(null);
-    Assert.assertNotNull(actionMap);
-    Assert.assertEquals("testAction", actionMap.get("action"));
+    assertNotNull(actionMap);
+    assertEquals("testAction", actionMap.get("action"));
   }
 }

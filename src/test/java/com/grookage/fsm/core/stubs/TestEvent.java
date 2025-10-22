@@ -10,6 +10,6 @@ public enum TestEvent implements Event {
 
   MOVE_TO_COMPLETED,
 
-  MOVE_TO_FAILED;
+  MOVE_TO_FAILED
 
 }

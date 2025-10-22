@@ -15,76 +15,79 @@
  */
 package com.grookage.fsm.core;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.grookage.fsm.core.exceptions.InvalidStateException;
 import com.grookage.fsm.core.helpers.StateMachineHelper;
 import com.grookage.fsm.core.stubs.TestContext;
 import com.grookage.fsm.core.stubs.TestEvent;
 import com.grookage.fsm.core.stubs.TestState;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Entity by : koushikr. on 26/10/15.
  */
-public class StateMachineTest {
+class StateMachineTest {
 
   @Test
-  public void testForValidStateMachine() throws InvalidStateException {
+  void testForValidStateMachine() throws InvalidStateException {
     final var stateMachineCore = StateMachineHelper.getValidStateMachine();
     stateMachineCore.getStateEngine().validate();
   }
 
-  @Test(expected = InvalidStateException.class)
-  public void testForInvalidStateMachine() throws InvalidStateException {
+  @Test
+  void testForInvalidStateMachine(){
     final var stateMachineCore = StateMachineHelper.getInvalidStateMachine();
-    stateMachineCore.getStateEngine().validate();
+    assertThrows(InvalidStateException.class, () -> stateMachineCore.getStateEngine().validate());
   }
 
   @Test
-  public void testAnyEvent() {
+  void testAnyEvent() {
     final var testContext = new TestContext();
     testContext.setFrom(TestState.STARTED);
     testContext.setTo(TestState.CREATED);
     testContext.setCausedEvent(TestEvent.INITIATE);
     final var stateMachineCore = StateMachineHelper.getValidStateMachine();
     stateMachineCore.getStateEngine().anyTransition(
-        context -> Assert.assertSame(TestState.STARTED, context.getFrom()));
+        context -> assertSame(TestState.STARTED, context.getFrom()));
     stateMachineCore.getStateEngine().fire(TestEvent.INITIATE, testContext);
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testInvalidTransitionOnAnyEvent() {
-    final var testContext = new TestContext();
-    testContext.setFrom(TestState.CREATED);
-    testContext.setTo(TestState.CREATED);
-    testContext.setCausedEvent(TestEvent.INITIATE);
-    final var stateMachineCore = StateMachineHelper.getValidStateMachine();
-    stateMachineCore.getStateEngine().anyTransition(
-        context -> Assert.assertSame(TestState.STARTED, context.getFrom()));
-    stateMachineCore.fire(testContext);
+  @Test
+  void testInvalidTransitionOnAnyEvent() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      final var testContext = new TestContext();
+      testContext.setFrom(TestState.CREATED);
+      testContext.setTo(TestState.CREATED);
+      testContext.setCausedEvent(TestEvent.INITIATE);
+      final var stateMachineCore = StateMachineHelper.getValidStateMachine();
+      stateMachineCore.getStateEngine().anyTransition(
+          context -> assertSame(TestState.STARTED, context.getFrom()));
+      stateMachineCore.fire(testContext);
+    });
   }
 
   @Test
-  public void testInvalidTransitionOnAnyEventFireGrace() {
+  void testInvalidTransitionOnAnyEventFireGrace() {
     final var testContext = new TestContext();
     testContext.setFrom(TestState.CREATED);
     testContext.setTo(TestState.CREATED);
     testContext.setCausedEvent(TestEvent.INITIATE);
     final var stateMachineCore = StateMachineHelper.getValidStateMachine();
     stateMachineCore.getStateEngine().anyTransition(
-        context -> Assert.assertSame(TestState.STARTED, context.getFrom()));
+        context -> assertSame(TestState.STARTED, context.getFrom()));
     stateMachineCore.fireGrace(testContext);
   }
 
   @Test
-  public void testForTransition() {
+  void testForTransition() {
     final var testContext = new TestContext();
     testContext.setFrom(TestState.STARTED);
     testContext.setTo(TestState.CREATED);
     testContext.setCausedEvent(TestEvent.INITIATE);
     final var stateMachineCore = StateMachineHelper.getValidStateMachine();
     stateMachineCore.getStateEngine().anyTransition(
-        context -> Assert.assertSame(TestState.STARTED, context.getFrom()));
+        context -> assertSame(TestState.STARTED, context.getFrom()));
     stateMachineCore.getStateEngine().fire(TestEvent.INITIATE, testContext);
   }
 }

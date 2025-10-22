@@ -17,13 +17,12 @@ package com.grookage.fsm.core.config;
 
 import com.grookage.fsm.core.models.entities.Event;
 import com.grookage.fsm.core.models.entities.State;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor

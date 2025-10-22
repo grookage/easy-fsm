@@ -12,5 +12,5 @@ public enum TestState implements State {
 
   COMPLETED,
 
-  FAILED;
+  FAILED
 }

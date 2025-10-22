@@ -17,25 +17,18 @@ package com.grookage.fsm.core.config;
 
 import com.grookage.fsm.core.models.entities.Event;
 import com.grookage.fsm.core.models.entities.State;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class MachineBuilderConfig<S extends State, E extends Event> {
 
-    @NotEmpty
     private String name;
-    @NotNull
     private S startState;
-    @NotNull
     private Set<S> endStates;
-    @NotEmpty
     private Set<TransitionConfig<S, E>> transitionConfigs;
 }

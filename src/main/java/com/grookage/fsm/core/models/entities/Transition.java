@@ -15,11 +15,10 @@
  */
 package com.grookage.fsm.core.models.entities;
 
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Objects;
 
 /**
  * Entity by : koushikr. on 23/10/15.

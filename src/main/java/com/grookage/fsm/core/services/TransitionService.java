@@ -15,38 +15,39 @@
  */
 package com.grookage.fsm.core.services;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 import com.grookage.fsm.core.models.entities.Event;
 import com.grookage.fsm.core.models.entities.State;
 import com.grookage.fsm.core.models.entities.Transition;
-import lombok.AllArgsConstructor;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
  * Entity by : koushikr. on 23/10/15.
  */
+@Getter
 public class TransitionService<E extends Event, S extends State> {
 
-  private final Multimap<S, Transition<E, S>> transitionDetails;
+  private final Map<S, Set<Transition<E, S>>> transitionDetails;
 
   public TransitionService() {
-    transitionDetails = HashMultimap.create();
+    transitionDetails = new HashMap<>();
   }
 
   public void addTransition(S state, Transition<E, S> transition) {
-    transitionDetails.put(state, transition);
+    transitionDetails.computeIfAbsent(state, k -> new HashSet<>()).add(transition);
   }
 
   public Optional<Transition<E, S>> getTransition(S from, E event) {
     return transitionDetails.get(from).stream().filter(new TransitionPredicate<>(event))
         .findFirst();
-  }
-
-  public Multimap<S, Transition<E, S>> getTransitionDetails() {
-    return transitionDetails;
   }
 
   @AllArgsConstructor

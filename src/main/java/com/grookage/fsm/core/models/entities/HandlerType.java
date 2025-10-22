@@ -16,7 +16,6 @@
 package com.grookage.fsm.core.models.entities;
 
 import com.grookage.fsm.core.models.executors.EventAction;
-
 import java.util.Objects;
 
 /**
