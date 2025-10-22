@@ -17,7 +17,7 @@
                     <dependency>
                         <artifactId>asm</artifactId>
                         <groupId>org.ow2.asm</groupId>
-                        <version>7.2</version>
+                        <version>9.8</version>
                     </dependency>
                 </dependencies>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -220,12 +220,11 @@
         <java.version>17</java.version>
 
         <!-- Build Versions -->
-        <maven.compiler.version>3.8.1</maven.compiler.version>
-        <nexus.staging.plguin.version>1.6.13</nexus.staging.plguin.version>
-        <maven.surefire.plugin.version>3.0.0-M5</maven.surefire.plugin.version>
-        <jacoco.version>0.8.8</jacoco.version>
-        <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
-        <maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
+        <maven.compiler.version>3.14.1</maven.compiler.version>
+        <nexus.staging.plguin.version>1.7.0</nexus.staging.plguin.version>
+        <maven.surefire.plugin.version>3.5.4</maven.surefire.plugin.version>
+        <maven.source.plugin.version>3.3.1</maven.source.plugin.version>
+        <maven.gpg.plugin.version>3.2.8</maven.gpg.plugin.version>
 
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.organization>grookage</sonar.organization>
