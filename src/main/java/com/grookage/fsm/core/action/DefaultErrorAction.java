@@ -16,42 +16,24 @@
 package com.grookage.fsm.core.action;
 
 import com.grookage.fsm.core.exceptions.FsmException;
-import com.grookage.fsm.core.models.entities.Context;
-import com.grookage.fsm.core.models.entities.Event;
-import com.grookage.fsm.core.models.entities.State;
-import com.grookage.fsm.core.models.entities.TransitionKey;
 import com.grookage.fsm.core.models.executors.ErrorAction;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Objects;
-
 @Slf4j
 @NoArgsConstructor
-public class DefaultErrorAction<S extends State, E extends Event, K extends TransitionKey, C extends Context<S, E, K>> implements
-    ErrorAction<E, S, K, C> {
+public class DefaultErrorAction implements ErrorAction {
 
-  @Override
-  @SneakyThrows
-  public void call(FsmException error, C context) {
-    var errorMessage = "Runtime Error in state [" + error.getState() + "]";
-    if (!Objects.isNull(error.getEvent())) {
-      errorMessage = errorMessage + "on Event [" + error.getEvent() + "]";
-    }
-    log.error(
-        "Error performing a transition with from state and in current state {} with the event {} and message {}",
-        context.getFrom(),
-        context.getTo(),
-        errorMessage
-    );
-    log.debug(
-        "Error performing a transition with from state and in current state {} with the event {} and message {} with trace {}",
-        context.getFrom(),
-        context.getTo(),
-        errorMessage,
-        error
-    );
-    throw error;
-  }
+	@Override
+	@SneakyThrows
+	public void call(FsmException error) {
+		log.error(
+				"Transition handling failed with error code {} and status {} with context {}",
+				error.getCode(),
+				error.getStatus(),
+				error.getContext()
+		);
+		throw error;
+	}
 }

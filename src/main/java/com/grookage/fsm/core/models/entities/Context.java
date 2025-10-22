@@ -16,7 +16,6 @@
 package com.grookage.fsm.core.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.base.Strings;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,36 +38,36 @@ import java.util.function.Function;
 @NoArgsConstructor
 @Data
 public abstract class Context<S extends State, E extends Event, K extends TransitionKey> implements
-    Serializable {
+		Serializable {
 
-  private static final long serialVersionUID = 42L;
-  private S from;
-  private S to;
-  private E causedEvent;
-  private ContextData data = new ContextData();
+	private static final long serialVersionUID = 42L;
+	private S from;
+	private S to;
+	private E causedEvent;
+	private ContextData data = new ContextData();
 
-  protected Context(S from, S to, E event) {
-    this.from = from;
-    this.to = to;
-    this.causedEvent = event;
-  }
+	protected Context(S from, S to, E event) {
+		this.from = from;
+		this.to = to;
+		this.causedEvent = event;
+	}
 
-  public abstract K getTransitionKey();
+	public abstract K getTransitionKey();
 
-  @JsonIgnore
-  public <V> void addContext(String key, V value) {
-    if (Strings.isNullOrEmpty(key.toUpperCase())) {
-      throw new IllegalArgumentException("Invalid key for context data. Key cannot be null/empty");
-    }
-    if (this.data == null) {
-      this.data = new ContextData();
-    }
-    this.data.put(key.toUpperCase(), value);
-  }
+	@JsonIgnore
+	public <V> void addContext(String key, V value) {
+		if (null == key || key.isEmpty()) {
+			throw new IllegalArgumentException("Invalid key for context data. Key cannot be null/empty");
+		}
+		if (this.data == null) {
+			this.data = new ContextData();
+		}
+		this.data.put(key.toUpperCase(), value);
+	}
 
-  @JsonIgnore
-  public <T> Optional<T> getContext(String key, Function<Object, Optional<T>> converter) {
-    var value = this.data.get(key.toUpperCase());
-    return converter.apply(value);
-  }
+	@JsonIgnore
+	public <T> Optional<T> getContext(String key, Function<Object, Optional<T>> converter) {
+		var value = this.data.get(key.toUpperCase());
+		return converter.apply(value);
+	}
 }

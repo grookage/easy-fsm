@@ -1,263 +1,244 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <artifactId>fsm</artifactId>
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <forceJavacCompilerUse>true</forceJavacCompilerUse>
-          <release>17</release>
-          <source>17</source>
-          <target>17</target>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <artifactId>asm</artifactId>
-            <groupId>org.ow2.asm</groupId>
-            <version>7.2</version>
-          </dependency>
-        </dependencies>
-        <groupId>org.apache.maven.plugins</groupId>
-        <version>3.8.1</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>test</goal>
-            </goals>
-            <id>test</id>
-            <phase>test</phase>
-          </execution>
-        </executions>
-        <version>2.19.1</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <groupId>org.codehaus.mojo</groupId>
-        <version>3.0.3</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            <id>attach-sources</id>
-          </execution>
-        </executions>
-        <groupId>org.apache.maven.plugins</groupId>
-        <version>3.2.0</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.6.3</version>
-        <configuration>
-          <doclint>all,-missing</doclint>
-        </configuration>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-  <dependencies>
-    <dependency>
-      <artifactId>slf4j-api</artifactId>
-      <groupId>org.slf4j</groupId>
-      <scope>compile</scope>
-      <version>${sl4j.version}</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>lombok</artifactId>
-      <groupId>org.projectlombok</groupId>
-      <scope>compile</scope>
-      <version>${lombok.version}</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>guava</artifactId>
-      <groupId>com.google.guava</groupId>
-      <scope>compile</scope>
-      <version>${guava.version}</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>jackson-annotations</artifactId>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <scope>compile</scope>
-      <version>${jackson.version}</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>jackson-databind</artifactId>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <version>${jackson.version}</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>validation-api</artifactId>
-      <groupId>javax.validation</groupId>
-      <scope>compile</scope>
-      <version>2.0.1.Final</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/junit/junit -->
-    <dependency>
-      <artifactId>junit</artifactId>
-      <groupId>junit</groupId>
-      <scope>test</scope>
-      <version>4.13.2</version>
-    </dependency>
-  </dependencies>
-  <description>A simple quick to use fsm</description>
-  <developers>
-    <developer>
-      <email>rkoushik.14@gmail.com</email>
-      <id>koushikr</id>
-      <name>Koushik Ramachandra</name>
-    </developer>
-  </developers>
-  <distributionManagement>
-    <repository>
-      <id>ossrh</id>
-      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
-
-  <groupId>com.grookage.fsm</groupId>
-  <inceptionYear>2015</inceptionYear>
-  <issueManagement>
-    <system>GitHub Issues</system>
-    <url>https://github.com/grookage/easy-fsm/issues</url>
-  </issueManagement>
-  <licenses>
-    <license>
-      <comments>A business-friendly OSS license</comments>
-      <distribution>repo</distribution>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-    </license>
-  </licenses>
-
-  <modelVersion>4.0.0</modelVersion>
-  <name>Easy fsm</name>
-  <profiles>
-    <profile>
-      <activation>
-        <property>
-          <name>release</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <build>
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>fsm</artifactId>
+    <build>
         <plugins>
-          <plugin>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <configuration>
-              <autoReleaseAfterClose>true</autoReleaseAfterClose>
-              <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-              <serverId>ossrh</serverId>
-            </configuration>
-            <extensions>true</extensions>
-            <groupId>org.sonatype.plugins</groupId>
-            <version>1.6.7</version>
-          </plugin>
-          <plugin>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <executions>
-              <execution>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                  <executable>gpg</executable>
-                  <useAgent>true</useAgent>
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                    <release>${java.version}</release>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-              </execution>
-            </executions>
-            <groupId>org.apache.maven.plugins</groupId>
-            <version>1.6</version>
-          </plugin>
-          <plugin>
-            <artifactId>maven-enforcer-plugin</artifactId>
-            <executions>
-              <execution>
+                <dependencies>
+                    <dependency>
+                        <artifactId>asm</artifactId>
+                        <groupId>org.ow2.asm</groupId>
+                        <version>7.2</version>
+                    </dependency>
+                </dependencies>
+                <groupId>org.apache.maven.plugins</groupId>
+                <version>${maven.compiler.version}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <id>test</id>
+                        <phase>test</phase>
+                    </execution>
+                </executions>
+                <version>${maven.surefire.plugin.version}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <version>3.0.3</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <id>attach-sources</id>
+                    </execution>
+                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <version>${maven.source.plugin.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.5.0</version>
+                <extensions>true</extensions>
                 <configuration>
-                  <fail>true</fail>
-                  <rules>
-                    <requireReleaseDeps>
-                      <message>No Snapshots Allowed!</message>
-                    </requireReleaseDeps>
-                  </rules>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
                 </configuration>
-                <goals>
-                  <goal>enforce</goal>
-                </goals>
-                <id>enforce-no-snapshots</id>
-              </execution>
-            </executions>
-            <groupId>org.apache.maven.plugins</groupId>
-            <version>3.0.0-M2</version>
-          </plugin>
-          <plugin>
-            <artifactId>maven-release-plugin</artifactId>
-            <configuration>
-              <autoVersionSubmodules>true</autoVersionSubmodules>
-              <goals>deploy</goals>
-              <releaseProfiles>release</releaseProfiles>
-              <useReleaseProfile>false</useReleaseProfile>
-            </configuration>
-            <groupId>org.apache.maven.plugins</groupId>
-            <version>2.5.3</version>
-          </plugin>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.7.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    <stagingProgressTimeoutMinutes>10</stagingProgressTimeoutMinutes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <executable>gpg</executable>
+                            <useAgent>true</useAgent>
+                        </configuration>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <version>${maven.gpg.plugin.version}</version>
+            </plugin>
         </plugins>
-      </build>
-      <id>release</id>
-    </profile>
-  </profiles>
+    </build>
 
-  <properties>
-    <guava.version>31.1-jre</guava.version>
-    <jackson.version>2.13.3</jackson.version>
-    <lombok.version>1.18.24</lombok.version>
-    <sl4j.version>1.7.36</sl4j.version>
-    <sonar.coverage.exclusions>
-      **com/grookage/fsm/**
-    </sonar.coverage.exclusions>
-    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-    <sonar.organization>grookage</sonar.organization>
-  </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>${jackson.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit.jupiter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-  <scm>
-    <connection>scm:git:https://github.com/grookage/easy-fsm.git</connection>
-    <developerConnection>scm:git:https://github.com/grookage/easy-fsm.git</developerConnection>
-    <tag>HEAD</tag>
-    <url>https://github.com/grookage/easy-fsm.git</url>
-  </scm>
+    <dependencies>
+        <dependency>
+            <artifactId>slf4j-api</artifactId>
+            <groupId>org.slf4j</groupId>
+            <version>${sl4j.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
-  <url>https://github.com/grookage/easy-fsm</url>
+        <dependency>
+            <artifactId>lombok</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
-  <version>2.0.3</version>
+        <dependency>
+            <artifactId>jackson-annotations</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+        </dependency>
+
+        <dependency>
+            <artifactId>jackson-databind</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <description>A simple quick to use fsm</description>
+    <developers>
+        <developer>
+            <email>rkoushik.14@gmail.com</email>
+            <id>koushikr</id>
+            <name>Koushik Ramachandra</name>
+        </developer>
+    </developers>
+    <distributionManagement>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <groupId>com.grookage.fsm</groupId>
+    <inceptionYear>2015</inceptionYear>
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/grookage/easy-fsm/issues</url>
+    </issueManagement>
+    <licenses>
+        <license>
+            <comments>A business-friendly OSS license</comments>
+            <distribution>repo</distribution>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <modelVersion>4.0.0</modelVersion>
+    <name>Easy fsm</name>
+
+    <profiles>
+        <profile>
+            <id>add-java-open-options-for-jdk16+</id>
+            <activation>
+                <jdk>[16,)</jdk>
+            </activation>
+            <properties>
+                <argLine>
+                    --add-opens java.base/java.net=ALL-UNNAMED
+                    --add-opens java.base/sun.net=ALL-UNNAMED
+                </argLine>
+            </properties>
+        </profile>
+    </profiles>
+
+    <properties>
+        <jackson.version>2.17.3</jackson.version>
+        <lombok.version>1.18.24</lombok.version>
+        <sl4j.version>1.7.36</sl4j.version>
+        <junit.jupiter.version>5.8.2</junit.jupiter.version>
+        <java.version>17</java.version>
+
+        <!-- Build Versions -->
+        <maven.compiler.version>3.8.1</maven.compiler.version>
+        <nexus.staging.plguin.version>1.6.13</nexus.staging.plguin.version>
+        <maven.surefire.plugin.version>3.0.0-M5</maven.surefire.plugin.version>
+        <jacoco.version>0.8.8</jacoco.version>
+        <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
+        <maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
+
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.organization>grookage</sonar.organization>
+    </properties>
+
+    <scm>
+        <connection>scm:git:https://github.com/grookage/easy-fsm.git</connection>
+        <developerConnection>scm:git:https://github.com/grookage/easy-fsm.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/grookage/easy-fsm.git</url>
+    </scm>
+
+    <url>https://github.com/grookage/easy-fsm</url>
+
+    <version>2.0.4</version>
 </project>

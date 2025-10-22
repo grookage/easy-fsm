@@ -4,13 +4,13 @@ import com.grookage.fsm.core.models.entities.State;
 
 public enum TestState implements State {
 
-  STARTED,
+	STARTED,
 
-  CREATED,
+	CREATED,
 
-  IN_PROGRESS,
+	IN_PROGRESS,
 
-  COMPLETED,
+	COMPLETED,
 
-  FAILED;
+	FAILED;
 }

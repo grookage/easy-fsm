@@ -15,35 +15,46 @@
  */
 package com.grookage.fsm.core.exceptions;
 
-import com.grookage.fsm.core.models.entities.Context;
-import com.grookage.fsm.core.models.entities.Event;
-import com.grookage.fsm.core.models.entities.State;
+import lombok.Builder;
 import lombok.Getter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Entity by : koushikr. on 23/10/15.
  */
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({"rawtypes", "unused"})
 @Getter
-public class FsmException extends Exception {
+public class FsmException extends RuntimeException {
 
-  private static final long serialVersionUID = 4362053831847081229L;
-  private final State state;
-  private final Event event;
-  private final Context context;
+	private final int status;
+	private final String code;
+	private final transient Map<String, Object> context;
 
-  public FsmException(
-      State state,
-      Event event,
-      Exception error,
-      String message,
-      Context context
-  ) {
-    super(message, error);
+	@Builder
+	private FsmException(FsmErrorCode errorCode, Map<String, Object> context) {
+		super();
 
-    this.state = state;
-    this.event = event;
-    this.context = context;
-  }
+		this.status = errorCode.getStatus();
+		this.code = errorCode.name();
+		this.context = context;
+	}
 
+	private FsmException(FsmErrorCode errorCode, Throwable cause) {
+		super(cause);
+
+		this.code = errorCode.name();
+		this.status = errorCode.getStatus();
+		this.context = cause != null && cause.getLocalizedMessage() != null ?
+				Map.of("message", cause.getLocalizedMessage()) : new HashMap<>();
+	}
+
+	public static FsmException error(FsmErrorCode errorCode, Throwable t) {
+		return new FsmException(errorCode, t);
+	}
+
+	public static FsmException error(FsmErrorCode errorCode, Map<String, Object> context) {
+		return new FsmException(errorCode, context);
+	}
 }

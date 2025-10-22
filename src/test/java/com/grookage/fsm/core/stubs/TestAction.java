@@ -8,8 +8,8 @@ import java.util.Map;
 @Getter
 public class TestAction implements EventAction<TestEvent, TestState, TestTransitionKey, TestContext> {
 
-  @Override
-  public void call(TestContext context) {
-    context.addContext("action", Map.of("action", "testAction"));
-  }
+	@Override
+	public void call(TestContext context) {
+		context.addContext("action", Map.of("action", "testAction"));
+	}
 }

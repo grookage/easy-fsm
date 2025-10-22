@@ -33,30 +33,30 @@ import java.util.Objects;
 @Setter
 public class Transition<E extends Event, S extends State> {
 
-  private E event;
+	private E event;
 
-  private S from;
+	private S from;
 
-  private S to;
+	private S to;
 
-  @SuppressWarnings("rawtypes")
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (Objects.isNull(o) || getClass() != o.getClass()) {
-      return false;
-    }
-    final var that = (Transition) o;
-    return event.equals(that.event) && from.equals(that.from);
-  }
+	@SuppressWarnings("rawtypes")
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (Objects.isNull(o) || getClass() != o.getClass()) {
+			return false;
+		}
+		final var that = (Transition) o;
+		return event.equals(that.event) && from.equals(that.from);
+	}
 
-  @Override
-  public int hashCode() {
-    int result = event.hashCode();
-    result = 31 * result + from.hashCode();
-    return result;
-  }
+	@Override
+	public int hashCode() {
+		int result = event.hashCode();
+		result = 31 * result + from.hashCode();
+		return result;
+	}
 
 }

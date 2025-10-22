@@ -23,6 +23,6 @@ import com.grookage.fsm.core.models.executors.TransitionProcessor;
 
 public interface TransitionProcessorHub<S extends State, E extends Event, K extends TransitionKey, C extends Context<S, E, K>> {
 
-  TransitionProcessor<S, E, K, C> getProcessor(C context);
+	TransitionProcessor<S, E, K, C> getProcessor(C context);
 
 }

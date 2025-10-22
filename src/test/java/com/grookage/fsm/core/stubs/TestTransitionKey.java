@@ -10,5 +10,5 @@ import lombok.Data;
 @Data
 public class TestTransitionKey implements TransitionKey {
 
-  private String tag;
+	private String tag;
 }

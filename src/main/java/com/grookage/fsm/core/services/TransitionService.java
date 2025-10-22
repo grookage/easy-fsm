@@ -15,49 +15,45 @@
  */
 package com.grookage.fsm.core.services;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 import com.grookage.fsm.core.models.entities.Event;
 import com.grookage.fsm.core.models.entities.State;
 import com.grookage.fsm.core.models.entities.Transition;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 
 /**
  * Entity by : koushikr. on 23/10/15.
  */
+@Getter
 public class TransitionService<E extends Event, S extends State> {
 
-  private final Multimap<S, Transition<E, S>> transitionDetails;
+	private final Map<S, Set<Transition<E, S>>> transitionDetails;
 
-  public TransitionService() {
-    transitionDetails = HashMultimap.create();
-  }
+	public TransitionService() {
+		transitionDetails = new HashMap<>();
+	}
 
-  public void addTransition(S state, Transition<E, S> transition) {
-    transitionDetails.put(state, transition);
-  }
+	public void addTransition(S state, Transition<E, S> transition) {
+		transitionDetails.computeIfAbsent(state, x -> new HashSet<>()).add(transition);
+	}
 
-  public Optional<Transition<E, S>> getTransition(S from, E event) {
-    return transitionDetails.get(from).stream().filter(new TransitionPredicate<>(event))
-        .findFirst();
-  }
+	public Optional<Transition<E, S>> getTransition(S from, E event) {
+		return transitionDetails.get(from).stream().filter(new TransitionPredicate<>(event))
+				.findFirst();
+	}
 
-  public Multimap<S, Transition<E, S>> getTransitionDetails() {
-    return transitionDetails;
-  }
+	@AllArgsConstructor
+	private static final class TransitionPredicate<E extends Event, S extends State> implements
+			Predicate<Transition<E, S>> {
 
-  @AllArgsConstructor
-  private static final class TransitionPredicate<E extends Event, S extends State> implements
-      Predicate<Transition<E, S>> {
+		private E event;
 
-    private E event;
-
-    @Override
-    public boolean test(Transition<E, S> transition) {
-      return transition.getEvent().equals(event);
-    }
-  }
+		@Override
+		public boolean test(Transition<E, S> transition) {
+			return transition.getEvent().equals(event);
+		}
+	}
 }

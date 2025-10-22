@@ -8,12 +8,12 @@ import lombok.Builder;
 
 public class TestMachine extends StateMachine<TestState, TestEvent, TestTransitionKey, TestContext> {
 
-  @Builder
-  public TestMachine(TestState startState,
-      TransitionProcessorHub<TestState, TestEvent, TestTransitionKey, TestContext> transitionProcessorHub,
-      ErrorAction<TestEvent, TestState, TestTransitionKey, TestContext> errorAction,
-      EventAction<TestEvent, TestState, TestTransitionKey, TestContext> eventAction
-  ) {
-    super("test", startState, transitionProcessorHub, errorAction, eventAction);
-  }
+	@Builder
+	public TestMachine(TestState startState,
+	                   TransitionProcessorHub<TestState, TestEvent, TestTransitionKey, TestContext> transitionProcessorHub,
+	                   ErrorAction errorAction,
+	                   EventAction<TestEvent, TestState, TestTransitionKey, TestContext> eventAction
+	) {
+		super("test", startState, transitionProcessorHub, errorAction, eventAction);
+	}
 }
