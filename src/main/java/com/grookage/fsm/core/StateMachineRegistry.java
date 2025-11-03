@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static com.grookage.fsm.core.exceptions.InvalidStateMachineException.FSMErrorCode.INVALID_MACHINE_BUILDER_CONFIG;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({"rawtypes", "unchecked", "unused"})
 @NoArgsConstructor
 public class StateMachineRegistry {
 
