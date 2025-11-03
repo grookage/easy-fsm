@@ -15,7 +15,8 @@
  */
 package com.grookage.fsm.core;
 
-import com.grookage.fsm.core.exceptions.FsmException;
+import com.grookage.fsm.core.exceptions.InvalidStateMachineException;
+import com.grookage.fsm.core.exceptions.NoTransitionFoundException;
 import com.grookage.fsm.core.helpers.StateMachineHelper;
 import com.grookage.fsm.core.stubs.TestContext;
 import com.grookage.fsm.core.stubs.TestEvent;
@@ -41,7 +42,7 @@ class StateMachineTest {
 	@Test
 	void testForInvalidStateMachine() {
 		final var stateMachineCore = StateMachineHelper.getInvalidStateMachine();
-		assertThrows(FsmException.class, () -> stateMachineCore.getStateEngine().validate());
+		assertThrows(InvalidStateMachineException.class, () -> stateMachineCore.getStateEngine().validate());
 	}
 
 	@Test
@@ -65,7 +66,7 @@ class StateMachineTest {
 		final var stateMachineCore = StateMachineHelper.getValidStateMachine();
 		stateMachineCore.getStateEngine().anyTransition(
 				context -> assertSame(TestState.STARTED, context.getFrom()));
-		assertThrows(FsmException.class, () -> stateMachineCore.fire(testContext));
+		assertThrows(NoTransitionFoundException.class, () -> stateMachineCore.fire(testContext));
 	}
 
 	@Test

@@ -16,8 +16,7 @@
 package com.grookage.fsm.core;
 
 import com.grookage.fsm.core.config.MachineBuilderConfig;
-import com.grookage.fsm.core.exceptions.FsmErrorCode;
-import com.grookage.fsm.core.exceptions.FsmException;
+import com.grookage.fsm.core.exceptions.InvalidStateMachineException;
 import com.grookage.fsm.core.hubs.TransitionProcessorHub;
 import com.grookage.fsm.core.models.entities.Context;
 import com.grookage.fsm.core.models.entities.Event;
@@ -29,7 +28,7 @@ import com.grookage.fsm.core.utils.FsmUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Map;
+import static com.grookage.fsm.core.exceptions.InvalidStateMachineException.FSMErrorCode.INVALID_MACHINE_BUILDER_CONFIG;
 
 @NoArgsConstructor
 public class StateMachineBuilder<S extends State, E extends Event, K extends TransitionKey, C extends Context<S, E, K>> {
@@ -74,26 +73,22 @@ public class StateMachineBuilder<S extends State, E extends Event, K extends Tra
 
 	private void validateMachineBuilderConfig() {
 		if (null == machineBuilderConfig) {
-			throw FsmException.error(FsmErrorCode.INVALID_MACHINE_BUILDER_CONFIG,
-					Map.of(FsmUtils.errorString(), "Machine Builder Config can't be null"));
+			throw new InvalidStateMachineException(INVALID_MACHINE_BUILDER_CONFIG, "Machine Builder Config can't be null");
 		}
 
 		final var startState = machineBuilderConfig.getStartState();
 		if (null == startState) {
-			throw FsmException.error(FsmErrorCode.INVALID_MACHINE_BUILDER_CONFIG,
-					Map.of(FsmUtils.errorString(), "Start State can't be null"));
+			throw new InvalidStateMachineException(INVALID_MACHINE_BUILDER_CONFIG, "Start State can't be null");
 		}
 
 		final var endStates = machineBuilderConfig.getEndStates();
 		if (FsmUtils.isNullOrEmpty(endStates)) {
-			throw FsmException.error(FsmErrorCode.INVALID_MACHINE_BUILDER_CONFIG,
-					Map.of(FsmUtils.errorString(), "End States can't be null or empty"));
+			throw new InvalidStateMachineException(INVALID_MACHINE_BUILDER_CONFIG, "End States can't be null or empty");
 		}
 
 		final var transitionConfigs = machineBuilderConfig.getTransitionConfigs();
 		if (FsmUtils.isNullOrEmpty(transitionConfigs)) {
-			throw FsmException.error(FsmErrorCode.INVALID_MACHINE_BUILDER_CONFIG,
-					Map.of(FsmUtils.errorString(), "Transition Configs can't be null or empty"));
+			throw new InvalidStateMachineException(INVALID_MACHINE_BUILDER_CONFIG, "Transition Configs can't be null or empty");
 		}
 	}
 }

@@ -16,8 +16,7 @@
 package com.grookage.fsm.core;
 
 import com.grookage.fsm.core.config.MachineBuilderConfig;
-import com.grookage.fsm.core.exceptions.FsmErrorCode;
-import com.grookage.fsm.core.exceptions.FsmException;
+import com.grookage.fsm.core.exceptions.InvalidStateMachineException;
 import com.grookage.fsm.core.hubs.TransitionProcessorHub;
 import com.grookage.fsm.core.models.executors.ErrorAction;
 import com.grookage.fsm.core.models.executors.EventAction;
@@ -26,6 +25,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static com.grookage.fsm.core.exceptions.InvalidStateMachineException.FSMErrorCode.INVALID_MACHINE_BUILDER_CONFIG;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 @NoArgsConstructor
@@ -63,8 +64,7 @@ public class StateMachineRegistry {
 
 	public StateMachineRegistry build() {
 		if (FsmUtils.isNullOrEmpty(machineBuilderConfigs)) {
-			throw FsmException.error(FsmErrorCode.INVALID_MACHINE_BUILDER_CONFIG,
-					Map.of(FsmUtils.errorString(), "Machine Builder Configs can't be null or empty"));
+			throw new InvalidStateMachineException(INVALID_MACHINE_BUILDER_CONFIG, "Machine Builder Configs can't be null or empty");
 		}
 		machineBuilderConfigs.forEach(machineBuilderConfig -> {
 			final var stateMachine = new StateMachineBuilder<>()

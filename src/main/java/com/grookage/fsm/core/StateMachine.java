@@ -17,8 +17,8 @@ package com.grookage.fsm.core;
 
 import com.grookage.fsm.core.action.DefaultErrorAction;
 import com.grookage.fsm.core.engine.StateEngine;
-import com.grookage.fsm.core.exceptions.FsmErrorCode;
-import com.grookage.fsm.core.exceptions.FsmException;
+import com.grookage.fsm.core.exceptions.NoStateEngineFoundException;
+import com.grookage.fsm.core.exceptions.NoTransitionFoundException;
 import com.grookage.fsm.core.hubs.TransitionProcessorHub;
 import com.grookage.fsm.core.models.entities.*;
 import com.grookage.fsm.core.models.executors.ErrorAction;
@@ -33,7 +33,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
 import java.util.Locale;
-import java.util.Map;
 
 @SuppressWarnings({"UnusedReturnValue", "unused"})
 @Data
@@ -127,16 +126,18 @@ public class StateMachine<S extends State, E extends Event, K extends Transition
 				.getTransition(context.getFrom(), context.getCausedEvent())
 				.ifPresentOrElse(transition -> stateEngine.fire(context.getCausedEvent(), context),
 						() -> {
-							throw FsmException.error(FsmErrorCode.TRANSITION_NOT_FOUND,
-									Map.of(
-											"message", "Can't find a transition from " + context.getFrom() + " with event " + context.getTo(),
-											"context", context));
+							throw new NoTransitionFoundException(
+									context.getFrom(),
+									context.getCausedEvent(),
+									context,
+									"Can't find a transition from " + context.getFrom() + " with event " + context.getTo()
+							);
 						});
 	}
 
 	private void validateStateEngine() {
 		if (null == stateEngine) {
-			throw FsmException.error(FsmErrorCode.STATE_ENGINE_NOT_FOUND, Map.of());
+			throw new NoStateEngineFoundException("State Engine Not Found");
 		}
 	}
 }

@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [2.0.4]
+#### [2.0.3-1]
 
 - Removed the javax validation, removed guava. Using native java checks.
 - Upgraded junit to 5.x

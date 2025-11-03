@@ -27,13 +27,8 @@ public class DefaultErrorAction implements ErrorAction {
 
 	@Override
 	@SneakyThrows
-	public void call(FsmException error) {
-		log.error(
-				"Transition handling failed with error code {} and status {} with context {}",
-				error.getCode(),
-				error.getStatus(),
-				error.getContext()
-		);
-		throw error;
+	public void call(FsmException exception) {
+		log.error("Error Action Invoked : ", exception);
+		throw exception;
 	}
 }

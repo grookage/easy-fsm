@@ -17,7 +17,7 @@ package com.grookage.fsm.core;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.grookage.fsm.core.config.MachineBuilderConfig;
-import com.grookage.fsm.core.exceptions.FsmException;
+import com.grookage.fsm.core.exceptions.InvalidStateMachineException;
 import com.grookage.fsm.core.helpers.ResourceHelper;
 import com.grookage.fsm.core.stubs.*;
 import lombok.SneakyThrows;
@@ -48,7 +48,7 @@ class StateMachineBuilderTest {
 	void testForInvalidStateMachine() {
 		final var machineBuilderConfig = ResourceHelper.getResource("invalidMachine.json", new TypeReference<MachineBuilderConfig<TestState, TestEvent>>() {
 		});
-		assertThrows(FsmException.class, () -> new StateMachineBuilder<TestState, TestEvent, TestTransitionKey, TestContext>()
+		assertThrows(InvalidStateMachineException.class, () -> new StateMachineBuilder<TestState, TestEvent, TestTransitionKey, TestContext>()
 				.withMachineBuilderConfig(machineBuilderConfig)
 				.withTransitionProcessorHub(TestHub.builder().build())
 				.build());
@@ -58,16 +58,16 @@ class StateMachineBuilderTest {
 	@SneakyThrows
 	void testForInvalidMachineBuilderConfig() {
 		final var machineBuilderConfig = new MachineBuilderConfig<TestState, TestEvent>();
-		assertThrows(FsmException.class, () -> constructStateMachine(machineBuilderConfig));
+		assertThrows(InvalidStateMachineException.class, () -> constructStateMachine(machineBuilderConfig));
 
 		machineBuilderConfig.setName("name");
-		assertThrows(FsmException.class, () -> constructStateMachine(machineBuilderConfig));
+		assertThrows(InvalidStateMachineException.class, () -> constructStateMachine(machineBuilderConfig));
 
 		machineBuilderConfig.setStartState(TestState.CREATED);
-		assertThrows(FsmException.class, () -> constructStateMachine(machineBuilderConfig));
+		assertThrows(InvalidStateMachineException.class, () -> constructStateMachine(machineBuilderConfig));
 
 		machineBuilderConfig.setEndStates(Set.of(TestState.COMPLETED));
-		assertThrows(FsmException.class, () -> constructStateMachine(machineBuilderConfig));
+		assertThrows(InvalidStateMachineException.class, () -> constructStateMachine(machineBuilderConfig));
 	}
 
 	private StateMachine<TestState, TestEvent, TestTransitionKey, TestContext> constructStateMachine(

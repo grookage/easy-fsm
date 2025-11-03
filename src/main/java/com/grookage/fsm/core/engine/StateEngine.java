@@ -16,8 +16,10 @@
 package com.grookage.fsm.core.engine;
 
 import com.grookage.fsm.core.action.DefaultErrorAction;
-import com.grookage.fsm.core.exceptions.FsmErrorCode;
 import com.grookage.fsm.core.exceptions.FsmException;
+import com.grookage.fsm.core.exceptions.InvalidStateMachineException;
+import com.grookage.fsm.core.exceptions.NoTransitionFoundException;
+import com.grookage.fsm.core.exceptions.TransitionExecutionException;
 import com.grookage.fsm.core.models.entities.*;
 import com.grookage.fsm.core.models.executors.ErrorAction;
 import com.grookage.fsm.core.models.executors.EventAction;
@@ -29,9 +31,10 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+
+import static com.grookage.fsm.core.exceptions.InvalidStateMachineException.FSMErrorCode.*;
 
 /**
  * Entity by : koushikr. on 23/10/15.
@@ -139,13 +142,8 @@ public class StateEngine<E extends Event, S extends State, K extends TransitionK
 		final var from = context.getFrom();
 		final var transition = getTransition(from, event);
 		if (transition.isEmpty()) {
-			throw FsmException.error(
-					FsmErrorCode.STATE_NOT_FOUND,
-					Map.of(FsmUtils.errorString(), "Invalid Transition : " + event + " triggered while in State: " + context.getFrom(),
-							"context", context,
-							"from", from,
-							"event", event)
-			);
+			throw new NoTransitionFoundException(from, event, context,
+					"Invalid Transition : " + event + " triggered while in State: " + context.getFrom());
 		}
 		try {
 			var to = transition.get().getTo();
@@ -153,23 +151,18 @@ public class StateEngine<E extends Event, S extends State, K extends TransitionK
 			handleStateTransition(event, from, context);
 			handleLanding(from, context);
 		} catch (Exception e) {
-			throw FsmException.error(FsmErrorCode.EVENT_TRANSITION_FAILED,
-					Map.of(
-							"from", from,
-							"event", event,
-							"context", context,
-							FsmUtils.errorString(), "Event Transition Failed"
-					));
+			throw new TransitionExecutionException(from, event, context,
+					"Error during transition : " + e.getMessage());
 		}
 	}
 
 	@SneakyThrows
 	public void validate() {
 		if (Objects.isNull(stateManagementService.getFrom())) {
-			throw FsmException.error(FsmErrorCode.STATE_NOT_FOUND, Map.of(FsmUtils.errorString(), "No start state found"));
+			throw new InvalidStateMachineException(NO_START_STATE, "No start state found");
 		}
 		if (stateManagementService.getEndStates().isEmpty()) {
-			throw FsmException.error(FsmErrorCode.STATE_NOT_FOUND, Map.of(FsmUtils.errorString(), "No end states found"));
+			throw new InvalidStateMachineException(NO_END_STATE, "No end states found");
 		}
 
 		var allStates = stateManagementService.allStates();
@@ -186,14 +179,12 @@ public class StateEngine<E extends Event, S extends State, K extends TransitionK
 			var transitions = map.get(state);
 			if (FsmUtils.isNullOrEmpty(transitions)) {
 				if (!stateManagementService.getEndStates().contains(state)) {
-					throw FsmException.error(FsmErrorCode.STATE_NOT_FOUND,
-							Map.of("message", "state :" + state + " is not an end state but"
-									+ " has no outgoing transitions"));
+					throw new InvalidStateMachineException(MISSING_TRANSITIONS_FOR_NON_START_STATE,
+							"state :" + state + " is not an end state but" + " has no outgoing transitions");
 				}
 			} else if (stateManagementService.getEndStates().contains(state)) {
-				throw FsmException.error(FsmErrorCode.STATE_NOT_FOUND,
-						Map.of("message", "state :" + state + " is an end state"
-								+ " and cannot have any out going transition"));
+				throw new InvalidStateMachineException(OUTGOING_TRANSITIONS_FROM_END_STATE,
+						"state :" + state + " is an end state" + " and cannot have any out going transition");
 			}
 		}
 	}
