@@ -21,27 +21,31 @@ import com.grookage.fsm.core.helpers.ResourceHelper;
 import com.grookage.fsm.core.stubs.TestEvent;
 import com.grookage.fsm.core.stubs.TestHub;
 import com.grookage.fsm.core.stubs.TestState;
-import org.junit.Assert;
-import org.junit.Test;
+import lombok.SneakyThrows;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class StateMachineRegistryTest {
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-    @Test
-    public void testHub() throws Exception {
-        final var machineBuilderConfig = ResourceHelper.getResource("stateMachine.json", new TypeReference<MachineBuilderConfig<TestState, TestEvent>>() {
-        });
-        final var machineBuilderConfig2 = ResourceHelper.getResource("stateMachine2.json", new TypeReference<MachineBuilderConfig<TestState, TestEvent>>() {
-        });
-        final var machineRegistry = new StateMachineRegistry()
-                .withMachineBuilderConfigs(List.of(machineBuilderConfig2, machineBuilderConfig))
-                .withHub(machineBuilderConfig.getName(), TestHub.builder().build())
-                .withHub(machineBuilderConfig2.getName(), TestHub.builder().build())
-                .build();
-        Assert.assertNotNull(machineRegistry);
-        Assert.assertTrue(machineRegistry.getMachine("testMachine").isPresent());
-        Assert.assertTrue(machineRegistry.getMachine("testMachine2").isPresent());
-        Assert.assertTrue(machineRegistry.getMachine("testMachine3").isEmpty());
-    }
+class StateMachineRegistryTest {
+
+	@Test
+	@SneakyThrows
+	void testHub() {
+		final var machineBuilderConfig = ResourceHelper.getResource("stateMachine.json", new TypeReference<MachineBuilderConfig<TestState, TestEvent>>() {
+		});
+		final var machineBuilderConfig2 = ResourceHelper.getResource("stateMachine2.json", new TypeReference<MachineBuilderConfig<TestState, TestEvent>>() {
+		});
+		final var machineRegistry = new StateMachineRegistry()
+				.withMachineBuilderConfigs(List.of(machineBuilderConfig2, machineBuilderConfig))
+				.withHub(machineBuilderConfig.getName(), TestHub.builder().build())
+				.withHub(machineBuilderConfig2.getName(), TestHub.builder().build())
+				.build();
+		assertNotNull(machineRegistry);
+		assertTrue(machineRegistry.getMachine("testMachine").isPresent());
+		assertTrue(machineRegistry.getMachine("testMachine2").isPresent());
+		assertTrue(machineRegistry.getMachine("testMachine3").isEmpty());
+	}
 }

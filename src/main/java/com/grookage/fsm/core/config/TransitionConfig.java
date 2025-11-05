@@ -30,28 +30,28 @@ import java.util.Set;
 @Data
 public class TransitionConfig<S extends State, E extends Event> {
 
-    private E causedEvent;
-    private Set<S> from;
-    private S to;
+	private E causedEvent;
+	private Set<S> from;
+	private S to;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        final var that = (TransitionConfig) o;
-        if (!Objects.equals(causedEvent, that.causedEvent)) {
-            return false;
-        }
-        return Objects.equals(causedEvent.name().toLowerCase(Locale.ROOT),
-                that.causedEvent.name().toUpperCase(Locale.ROOT));
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		final var that = (TransitionConfig) o;
+		if (!Objects.equals(causedEvent, that.causedEvent)) {
+			return false;
+		}
+		return Objects.equals(causedEvent.name().toLowerCase(Locale.ROOT),
+				that.causedEvent.name().toUpperCase(Locale.ROOT));
+	}
 
-    @Override
-    public int hashCode() {
-        return 31 * causedEvent.hashCode();
-    }
+	@Override
+	public int hashCode() {
+		return 31 * causedEvent.hashCode();
+	}
 }

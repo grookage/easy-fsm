@@ -16,10 +16,6 @@
 package com.grookage.fsm.core.models.executors;
 
 import com.grookage.fsm.core.exceptions.FsmException;
-import com.grookage.fsm.core.models.entities.Context;
-import com.grookage.fsm.core.models.entities.Event;
-import com.grookage.fsm.core.models.entities.State;
-import com.grookage.fsm.core.models.entities.TransitionKey;
 
 /**
  * Entity by : koushikr. on 23/10/15.
@@ -29,9 +25,8 @@ import com.grookage.fsm.core.models.entities.TransitionKey;
  * </p>
  */
 @FunctionalInterface
-public interface ErrorAction<E extends Event, S extends State, K extends TransitionKey, C extends Context<S, E, K>> extends
-    Action {
+public interface ErrorAction extends Action {
 
-  void call(FsmException error, C context);
+	void call(FsmException error);
 
 }

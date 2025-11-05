@@ -30,9 +30,9 @@ import lombok.SneakyThrows;
  */
 @FunctionalInterface
 public interface EventAction<E extends Event, S extends State, K extends TransitionKey, C extends Context<S, E, K>> extends
-    Action {
+		Action {
 
-  @SneakyThrows
-  void call(C context);
+	@SneakyThrows
+	void call(C context);
 
 }

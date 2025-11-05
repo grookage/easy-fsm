@@ -15,63 +15,66 @@
  */
 package com.grookage.fsm.core;
 
-import com.google.common.base.Preconditions;
 import com.grookage.fsm.core.config.MachineBuilderConfig;
+import com.grookage.fsm.core.exceptions.InvalidStateMachineException;
 import com.grookage.fsm.core.hubs.TransitionProcessorHub;
 import com.grookage.fsm.core.models.executors.ErrorAction;
 import com.grookage.fsm.core.models.executors.EventAction;
+import com.grookage.fsm.core.utils.FsmUtils;
 import lombok.NoArgsConstructor;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
+import static com.grookage.fsm.core.exceptions.InvalidStateMachineException.FSMErrorCode.INVALID_MACHINE_BUILDER_CONFIG;
+
+@SuppressWarnings({"rawtypes", "unchecked", "unused"})
 @NoArgsConstructor
 public class StateMachineRegistry {
 
-    private Map<String, StateMachine> machineRegistry = new ConcurrentHashMap<>();
-    private List<MachineBuilderConfig> machineBuilderConfigs = new ArrayList<>();
-    private Map<String, ErrorAction> errorRegistry = new ConcurrentHashMap<>();
-    private Map<String, EventAction> eventRegistry = new ConcurrentHashMap<>();
+	private final Map<String, StateMachine> machineRegistry = new ConcurrentHashMap<>();
+	private final Map<String, ErrorAction> errorRegistry = new ConcurrentHashMap<>();
+	private final Map<String, EventAction> eventRegistry = new ConcurrentHashMap<>();
+	private final Map<String, TransitionProcessorHub> hubs = new ConcurrentHashMap<>();
+	private List<MachineBuilderConfig> machineBuilderConfigs = new ArrayList<>();
 
-    private Map<String, TransitionProcessorHub> hubs = new ConcurrentHashMap<>();
+	public Optional<StateMachine> getMachine(final String name) {
+		return Optional.ofNullable(machineRegistry.get(name.toUpperCase(Locale.ROOT)));
+	}
 
-    public Optional<StateMachine> getMachine(final String name) {
-        return Optional.ofNullable(machineRegistry.get(name.toUpperCase(Locale.ROOT)));
-    }
+	public StateMachineRegistry withMachineBuilderConfigs(List<MachineBuilderConfig> machineBuilderConfigs) {
+		this.machineBuilderConfigs = machineBuilderConfigs;
+		return this;
+	}
 
-    public StateMachineRegistry withMachineBuilderConfigs(List<MachineBuilderConfig> machineBuilderConfigs) {
-        this.machineBuilderConfigs = machineBuilderConfigs;
-        return this;
-    }
+	public StateMachineRegistry withHub(final String machineName, TransitionProcessorHub transitionProcessorHub) {
+		hubs.putIfAbsent(machineName.toUpperCase(Locale.ROOT), transitionProcessorHub);
+		return this;
+	}
 
-    public StateMachineRegistry withHub(final String machineName, TransitionProcessorHub transitionProcessorHub){
-        hubs.putIfAbsent(machineName.toUpperCase(Locale.ROOT), transitionProcessorHub);
-        return this;
-    }
+	public StateMachineRegistry withEventAction(final String machineName, EventAction eventAction) {
+		eventRegistry.putIfAbsent(machineName.toUpperCase(Locale.ROOT), eventAction);
+		return this;
+	}
 
-    public StateMachineRegistry withEventAction(final String machineName, EventAction eventAction){
-        eventRegistry.putIfAbsent(machineName.toUpperCase(Locale.ROOT), eventAction);
-        return this;
-    }
+	public StateMachineRegistry withErrorAction(final String machineName, ErrorAction errorAction) {
+		errorRegistry.putIfAbsent(machineName.toUpperCase(Locale.ROOT), errorAction);
+		return this;
+	}
 
-    public StateMachineRegistry withErrorAction(final String machineName, ErrorAction errorAction) {
-        errorRegistry.putIfAbsent(machineName.toUpperCase(Locale.ROOT), errorAction);
-        return this;
-    }
-
-    public StateMachineRegistry build() {
-        Preconditions.checkArgument(null != machineBuilderConfigs && !machineBuilderConfigs.isEmpty(),
-                "Machine Builder Configs can't be null or empty");
-        machineBuilderConfigs.forEach(machineBuilderConfig -> {
-            final var stateMachine = new StateMachineBuilder<>()
-                    .withMachineBuilderConfig(machineBuilderConfig)
-                    .withTransitionProcessorHub(hubs.get(machineBuilderConfig.getName()))
-                    .withErrorAction(errorRegistry.get(machineBuilderConfig.getName()))
-                    .withEventAction(eventRegistry.get(machineBuilderConfig.getName()))
-                    .build();
-            machineRegistry.putIfAbsent(machineBuilderConfig.getName().toUpperCase(Locale.ROOT), stateMachine);
-        });
-        return this;
-    }
+	public StateMachineRegistry build() {
+		if (FsmUtils.isNullOrEmpty(machineBuilderConfigs)) {
+			throw new InvalidStateMachineException(INVALID_MACHINE_BUILDER_CONFIG, "Machine Builder Configs can't be null or empty");
+		}
+		machineBuilderConfigs.forEach(machineBuilderConfig -> {
+			final var stateMachine = new StateMachineBuilder<>()
+					.withMachineBuilderConfig(machineBuilderConfig)
+					.withTransitionProcessorHub(hubs.get(machineBuilderConfig.getName()))
+					.withErrorAction(errorRegistry.get(machineBuilderConfig.getName()))
+					.withEventAction(eventRegistry.get(machineBuilderConfig.getName()))
+					.build();
+			machineRegistry.putIfAbsent(machineBuilderConfig.getName().toUpperCase(Locale.ROOT), stateMachine);
+		});
+		return this;
+	}
 }

@@ -15,7 +15,6 @@
  */
 package com.grookage.fsm.core.services;
 
-import com.google.common.collect.Sets;
 import com.grookage.fsm.core.models.entities.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,17 +32,17 @@ import java.util.Set;
 @NoArgsConstructor
 public class StateManagementService<S extends State> {
 
-  private final Set<S> endStates = Sets.newHashSet();
-  private S from;
+	private final Set<S> endStates = new HashSet<>();
+	private S from;
 
-  public void addEndStates(Collection<S> endStates) {
-    this.endStates.addAll(endStates);
-  }
+	public void addEndStates(Collection<S> endStates) {
+		this.endStates.addAll(endStates);
+	}
 
-  public Set<S> allStates() {
-    var states = new HashSet<S>();
-    states.add(this.from);
-    states.addAll(this.endStates);
-    return states;
-  }
+	public Set<S> allStates() {
+		var states = new HashSet<S>();
+		states.add(this.from);
+		states.addAll(this.endStates);
+		return states;
+	}
 }

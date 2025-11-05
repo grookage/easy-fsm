@@ -15,35 +15,17 @@
  */
 package com.grookage.fsm.core.exceptions;
 
-import com.grookage.fsm.core.models.entities.Context;
-import com.grookage.fsm.core.models.entities.Event;
-import com.grookage.fsm.core.models.entities.State;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * Entity by : koushikr. on 23/10/15.
  */
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({"unused"})
 @Getter
-public class FsmException extends Exception {
+@AllArgsConstructor
+public abstract class FsmException extends RuntimeException {
 
-  private static final long serialVersionUID = 4362053831847081229L;
-  private final State state;
-  private final Event event;
-  private final Context context;
-
-  public FsmException(
-      State state,
-      Event event,
-      Exception error,
-      String message,
-      Context context
-  ) {
-    super(message, error);
-
-    this.state = state;
-    this.event = event;
-    this.context = context;
-  }
+	private final String message;
 
 }

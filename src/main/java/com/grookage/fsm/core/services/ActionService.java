@@ -33,89 +33,89 @@ import java.util.Objects;
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class ActionService<E extends Event, S extends State, K extends TransitionKey, C extends Context<S, E, K>> {
 
-  private final Map<HandlerType<E, S>, Action> handlers;
+	private final Map<HandlerType<E, S>, Action> handlers;
 
-  public ActionService() {
-    handlers = new HashMap<>();
-  }
+	public ActionService() {
+		handlers = new HashMap<>();
+	}
 
-  public void anyTransition(EventAction<E, S, K, C> context) {
-    handlers.put(new HandlerType<>(EventType.ANY_STATE_TRANSITION, null, null), context);
-  }
+	public void anyTransition(EventAction<E, S, K, C> context) {
+		handlers.put(new HandlerType<>(EventType.ANY_STATE_TRANSITION, null, null), context);
+	}
 
-  public void beforeTransition(S state, EventAction<E, S, K, C> context) {
-    handlers.put(Objects.isNull(state) ?
-            new HandlerType<>(EventType.BEFORE_ANY_TRANSITION, null, null)
-            : new HandlerType<>(EventType.BEFORE_STATE_TRANSITION, null, state),
-        context
-    );
-  }
+	public void beforeTransition(S state, EventAction<E, S, K, C> context) {
+		handlers.put(Objects.isNull(state) ?
+						new HandlerType<>(EventType.BEFORE_ANY_TRANSITION, null, null)
+						: new HandlerType<>(EventType.BEFORE_STATE_TRANSITION, null, state),
+				context
+		);
+	}
 
-  public void afterTransition(S state, EventAction<E, S, K, C> context) {
-    handlers.put(Objects.isNull(state) ?
-            new HandlerType<>(EventType.AFTER_ANY_TRANSITION, null, null)
-            : new HandlerType<>(EventType.AFTER_STATE_TRANSITION, null, state),
-        context
-    );
-  }
+	public void afterTransition(S state, EventAction<E, S, K, C> context) {
+		handlers.put(Objects.isNull(state) ?
+						new HandlerType<>(EventType.AFTER_ANY_TRANSITION, null, null)
+						: new HandlerType<>(EventType.AFTER_STATE_TRANSITION, null, state),
+				context
+		);
+	}
 
-  public void forTransition(E event, S state, EventAction<E, S, K, C> context) {
-    handlers.put(new HandlerType<>(EventType.STATE_TRANSITION, event, state), context);
-  }
+	public void forTransition(E event, S state, EventAction<E, S, K, C> context) {
+		handlers.put(new HandlerType<>(EventType.STATE_TRANSITION, event, state), context);
+	}
 
-  public void onFinalState(S state, EventAction<E, S, K, C> context) {
-    handlers.put(new HandlerType<>(EventType.FINAL_STATE, null, state), context);
-  }
+	public void onFinalState(S state, EventAction<E, S, K, C> context) {
+		handlers.put(new HandlerType<>(EventType.FINAL_STATE, null, state), context);
+	}
 
-  public void handleTransition(E event, S from, C context) {
-    var handler = handlers.get(new HandlerType(EventType.STATE_TRANSITION, null, from));
-    if (!Objects.isNull(handler)) {
-      ((EventAction<E, S, K, C>) handler).call(context);
-    }
+	public void handleTransition(E event, S from, C context) {
+		var handler = handlers.get(new HandlerType(EventType.STATE_TRANSITION, null, from));
+		if (!Objects.isNull(handler)) {
+			((EventAction<E, S, K, C>) handler).call(context);
+		}
 
-    handler = handlers.get(new HandlerType(EventType.STATE_TRANSITION, event, from));
-    if (!Objects.isNull(handler)) {
-      ((EventAction<E, S, K, C>) handler).call(context);
-    }
+		handler = handlers.get(new HandlerType(EventType.STATE_TRANSITION, event, from));
+		if (!Objects.isNull(handler)) {
+			((EventAction<E, S, K, C>) handler).call(context);
+		}
 
-    handler = handlers.get(new HandlerType(EventType.ANY_STATE_TRANSITION, null, null));
-    if (!Objects.isNull(handler)) {
-      ((EventAction<E, S, K, C>) handler).call(context);
-    }
-  }
+		handler = handlers.get(new HandlerType(EventType.ANY_STATE_TRANSITION, null, null));
+		if (!Objects.isNull(handler)) {
+			((EventAction<E, S, K, C>) handler).call(context);
+		}
+	}
 
-  public void handleLanding(S from, C context) {
-    var handler = handlers.get(new HandlerType(EventType.AFTER_STATE_TRANSITION, null, from));
-    if (!Objects.isNull(handler)) {
-      ((EventAction<E, S, K, C>) handler).call(context);
-    }
+	public void handleLanding(S from, C context) {
+		var handler = handlers.get(new HandlerType(EventType.AFTER_STATE_TRANSITION, null, from));
+		if (!Objects.isNull(handler)) {
+			((EventAction<E, S, K, C>) handler).call(context);
+		}
 
-    handler = handlers.get(new HandlerType(EventType.AFTER_ANY_TRANSITION, null, null));
-    if (!Objects.isNull(handler)) {
-      ((EventAction<E, S, K, C>) handler).call(context);
-    }
-  }
+		handler = handlers.get(new HandlerType(EventType.AFTER_ANY_TRANSITION, null, null));
+		if (!Objects.isNull(handler)) {
+			((EventAction<E, S, K, C>) handler).call(context);
+		}
+	}
 
-  public void handleTakeOff(S to, C context) {
-    var handler = handlers.get(new HandlerType(EventType.BEFORE_STATE_TRANSITION, null, to));
-    if (!Objects.isNull(handler)) {
-      ((EventAction<E, S, K, C>) handler).call(context);
-    }
+	public void handleTakeOff(S to, C context) {
+		var handler = handlers.get(new HandlerType(EventType.BEFORE_STATE_TRANSITION, null, to));
+		if (!Objects.isNull(handler)) {
+			((EventAction<E, S, K, C>) handler).call(context);
+		}
 
-    handler = handlers.get(new HandlerType(EventType.BEFORE_ANY_TRANSITION, null, null));
-    if (!Objects.isNull(handler)) {
-      ((EventAction<E, S, K, C>) handler).call(context);
-    }
-  }
+		handler = handlers.get(new HandlerType(EventType.BEFORE_ANY_TRANSITION, null, null));
+		if (!Objects.isNull(handler)) {
+			((EventAction<E, S, K, C>) handler).call(context);
+		}
+	}
 
-  public void handleError(FsmException error) {
-    var handler = handlers.get(new HandlerType(EventType.ERROR, null, null));
-    if (!Objects.isNull(handler)) {
-      ((ErrorAction) handler).call(error, error.getContext());
-    }
-  }
+	public void handleError(FsmException error) {
+		var handler = handlers.get(new HandlerType(EventType.ERROR, null, null));
+		if (!Objects.isNull(handler)) {
+			((ErrorAction) handler).call(error);
+		}
+	}
 
-  public void setHandler(EventType eventType, S state, E event, Action action) {
-    handlers.put(new HandlerType(eventType, event, state), action);
-  }
+	public void setHandler(EventType eventType, S state, E event, Action action) {
+		handlers.put(new HandlerType(eventType, event, state), action);
+	}
 }

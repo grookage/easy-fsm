@@ -17,33 +17,65 @@ package com.grookage.fsm.core;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.grookage.fsm.core.config.MachineBuilderConfig;
-import com.grookage.fsm.core.exceptions.InvalidStateException;
+import com.grookage.fsm.core.exceptions.InvalidStateMachineException;
 import com.grookage.fsm.core.helpers.ResourceHelper;
 import com.grookage.fsm.core.stubs.*;
-import org.junit.Assert;
-import org.junit.Test;
+import lombok.SneakyThrows;
+import org.junit.jupiter.api.Test;
 
-public class StateMachineBuilderTest {
+import java.util.Set;
 
-    @Test
-    public void testValidStateMachineBuilder() throws Exception {
-        final var machineBuilderConfig = ResourceHelper.getResource("stateMachine.json", new TypeReference<MachineBuilderConfig<TestState, TestEvent>>() {
-        });
-        Assert.assertNotNull(machineBuilderConfig);
-        final var stateMachine = new StateMachineBuilder<TestState, TestEvent, TestTransitionKey, TestContext>()
-                .withMachineBuilderConfig(machineBuilderConfig)
-                .withTransitionProcessorHub(TestHub.builder().build())
-                .build();
-        Assert.assertNotNull(stateMachine);
-    }
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-    @Test(expected = InvalidStateException.class)
-    public void testForInvalidStateMachine() throws Exception {
-        final var machineBuilderConfig = ResourceHelper.getResource("invalidMachine.json", new TypeReference<MachineBuilderConfig<TestState, TestEvent>>() {
-        });
-        new StateMachineBuilder<TestState, TestEvent, TestTransitionKey, TestContext>()
-                .withMachineBuilderConfig(machineBuilderConfig)
-                .withTransitionProcessorHub(TestHub.builder().build())
-                .build();
-    }
+class StateMachineBuilderTest {
+
+	@Test
+	@SneakyThrows
+	void testValidStateMachineBuilder() {
+		final var machineBuilderConfig = ResourceHelper.getResource("stateMachine.json", new TypeReference<MachineBuilderConfig<TestState, TestEvent>>() {
+		});
+		assertNotNull(machineBuilderConfig);
+		final var stateMachine = new StateMachineBuilder<TestState, TestEvent, TestTransitionKey, TestContext>()
+				.withMachineBuilderConfig(machineBuilderConfig)
+				.withTransitionProcessorHub(TestHub.builder().build())
+				.build();
+		assertNotNull(stateMachine);
+	}
+
+	@Test
+	@SneakyThrows
+	void testForInvalidStateMachine() {
+		final var machineBuilderConfig = ResourceHelper.getResource("invalidMachine.json", new TypeReference<MachineBuilderConfig<TestState, TestEvent>>() {
+		});
+		assertThrows(InvalidStateMachineException.class, () -> new StateMachineBuilder<TestState, TestEvent, TestTransitionKey, TestContext>()
+				.withMachineBuilderConfig(machineBuilderConfig)
+				.withTransitionProcessorHub(TestHub.builder().build())
+				.build());
+	}
+
+	@Test
+	@SneakyThrows
+	void testForInvalidMachineBuilderConfig() {
+		final var machineBuilderConfig = new MachineBuilderConfig<TestState, TestEvent>();
+		assertThrows(InvalidStateMachineException.class, () -> constructStateMachine(machineBuilderConfig));
+
+		machineBuilderConfig.setName("name");
+		assertThrows(InvalidStateMachineException.class, () -> constructStateMachine(machineBuilderConfig));
+
+		machineBuilderConfig.setStartState(TestState.CREATED);
+		assertThrows(InvalidStateMachineException.class, () -> constructStateMachine(machineBuilderConfig));
+
+		machineBuilderConfig.setEndStates(Set.of(TestState.COMPLETED));
+		assertThrows(InvalidStateMachineException.class, () -> constructStateMachine(machineBuilderConfig));
+	}
+
+	private StateMachine<TestState, TestEvent, TestTransitionKey, TestContext> constructStateMachine(
+			final MachineBuilderConfig<TestState, TestEvent> machineBuilderConfig
+	) {
+		return new StateMachineBuilder<TestState, TestEvent, TestTransitionKey, TestContext>()
+				.withMachineBuilderConfig(machineBuilderConfig)
+				.withTransitionProcessorHub(TestHub.builder().build())
+				.build();
+	}
 }

@@ -15,10 +15,12 @@
  */
 package com.grookage.fsm.core.helpers;
 
-import com.google.common.collect.Sets;
+
 import com.grookage.fsm.core.StateMachine;
 import com.grookage.fsm.core.stubs.*;
 import lombok.experimental.UtilityClass;
+
+import java.util.ArrayList;
 
 /**
  * Entity by : koushikr. on 26/10/15.
@@ -26,34 +28,49 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class StateMachineHelper {
 
-  public static StateMachine<TestState, TestEvent, TestTransitionKey, TestContext> getInvalidStateMachine() {
-    final var stateMachine = TestMachine.builder().
-        startState(TestState.STARTED)
-        .transitionProcessorHub(TestHub.builder().build())
-        .build();
-    stateMachine
-        .onTransition(TestEvent.INITIATE, TestState.STARTED, TestState.CREATED)
-        .onTransition(TestEvent.MOVE_TO_COMPLETED, TestState.IN_PROGRESS, TestState.COMPLETED)
-        .onTransition(TestEvent.MOVE_TO_FAILED,
-            Sets.newHashSet(TestState.STARTED, TestState.IN_PROGRESS),
-            TestState.FAILED)
-        .end(Sets.newHashSet(TestState.COMPLETED, TestState.FAILED));
-    return stateMachine;
-  }
+	public static StateMachine<TestState, TestEvent, TestTransitionKey, TestContext> getInvalidStateMachine() {
+		final var stateMachine = TestMachine.builder().
+				startState(TestState.STARTED)
+				.transitionProcessorHub(TestHub.builder().build())
+				.build();
+		final var endStates = new ArrayList<TestState>();
+		endStates.add(TestState.COMPLETED);
+		endStates.add(TestState.FAILED);
 
-  public static StateMachine<TestState, TestEvent, TestTransitionKey, TestContext> getValidStateMachine() {
-    final var stateMachine = TestMachine.builder()
-        .startState(TestState.STARTED)
-        .transitionProcessorHub(TestHub.builder().build())
-        .build();
-    stateMachine
-        .onTransition(TestEvent.INITIATE, TestState.STARTED, TestState.CREATED)
-        .onTransition(TestEvent.MOVE_TO_PROGRESS, TestState.CREATED, TestState.IN_PROGRESS)
-        .onTransition(TestEvent.MOVE_TO_COMPLETED, TestState.IN_PROGRESS, TestState.COMPLETED)
-        .onTransition(TestEvent.MOVE_TO_FAILED,
-            Sets.newHashSet(TestState.STARTED, TestState.CREATED, TestState.IN_PROGRESS),
-            TestState.FAILED)
-        .end(Sets.newHashSet(TestState.COMPLETED, TestState.FAILED));
-    return stateMachine;
-  }
+		final var transitionStates = new ArrayList<TestState>();
+		transitionStates.add(TestState.STARTED);
+		transitionStates.add(TestState.IN_PROGRESS);
+		stateMachine
+				.onTransition(TestEvent.INITIATE, TestState.STARTED, TestState.CREATED)
+				.onTransition(TestEvent.MOVE_TO_COMPLETED, TestState.IN_PROGRESS, TestState.COMPLETED)
+				.onTransition(TestEvent.MOVE_TO_FAILED,
+						transitionStates,
+						TestState.FAILED)
+				.end(endStates);
+		return stateMachine;
+	}
+
+	public static StateMachine<TestState, TestEvent, TestTransitionKey, TestContext> getValidStateMachine() {
+		final var stateMachine = TestMachine.builder()
+				.startState(TestState.STARTED)
+				.transitionProcessorHub(TestHub.builder().build())
+				.build();
+		final var transitionStates = new ArrayList<TestState>();
+		transitionStates.add(TestState.STARTED);
+		transitionStates.add(TestState.IN_PROGRESS);
+		transitionStates.add(TestState.CREATED);
+
+		final var endStates = new ArrayList<TestState>();
+		endStates.add(TestState.COMPLETED);
+		endStates.add(TestState.FAILED);
+		stateMachine
+				.onTransition(TestEvent.INITIATE, TestState.STARTED, TestState.CREATED)
+				.onTransition(TestEvent.MOVE_TO_PROGRESS, TestState.CREATED, TestState.IN_PROGRESS)
+				.onTransition(TestEvent.MOVE_TO_COMPLETED, TestState.IN_PROGRESS, TestState.COMPLETED)
+				.onTransition(TestEvent.MOVE_TO_FAILED,
+						transitionStates,
+						TestState.FAILED)
+				.end(endStates);
+		return stateMachine;
+	}
 }

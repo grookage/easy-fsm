@@ -30,40 +30,40 @@ import java.util.Objects;
  */
 public class HandlerType<E extends Event, S extends State> {
 
-  EventType eventType;
-  E event;
-  S state;
+	EventType eventType;
+	E event;
+	S state;
 
-  public HandlerType(EventType eventType, E event, S state) {
-    this.eventType = eventType;
-    this.event = event;
-    this.state = state;
-  }
+	public HandlerType(EventType eventType, E event, S state) {
+		this.eventType = eventType;
+		this.event = event;
+		this.state = state;
+	}
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    final var that = (HandlerType) o;
-    if (!Objects.equals(event, that.event)) {
-      return false;
-    }
-    if (that.eventType != eventType) {
-      return false;
-    }
-    return Objects.equals(state, that.state);
-  }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		final var that = (HandlerType) o;
+		if (!Objects.equals(event, that.event)) {
+			return false;
+		}
+		if (that.eventType != eventType) {
+			return false;
+		}
+		return Objects.equals(state, that.state);
+	}
 
-  @Override
-  public int hashCode() {
-    int result = eventType.hashCode();
-    result = 31 * result + (event != null ? event.hashCode() : 0);
-    result = 31 * result + (state != null ? state.hashCode() : 0);
-    return result;
-  }
+	@Override
+	public int hashCode() {
+		int result = eventType.hashCode();
+		result = 31 * result + (event != null ? event.hashCode() : 0);
+		result = 31 * result + (state != null ? state.hashCode() : 0);
+		return result;
+	}
 
 }

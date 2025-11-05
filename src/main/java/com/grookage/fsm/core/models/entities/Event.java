@@ -28,6 +28,6 @@ import java.io.Serializable;
 @SuppressWarnings("unused")
 public interface Event extends Serializable {
 
-  String name();
+	String name();
 
 }
