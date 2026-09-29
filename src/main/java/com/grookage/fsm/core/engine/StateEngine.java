@@ -152,7 +152,7 @@ public class StateEngine<E extends Event, S extends State, K extends TransitionK
 			handleLanding(from, context);
 		} catch (Exception e) {
 			throw new TransitionExecutionException(from, event, context,
-					"Error during transition : " + e.getMessage());
+					"Error during transition : " + e.getMessage(), e);
 		}
 	}
 

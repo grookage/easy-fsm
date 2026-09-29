@@ -22,4 +22,15 @@ public class TransitionExecutionException extends RuntimeException {
 		this.state = state;
 		this.context = context;
 	}
+
+	public TransitionExecutionException(final State state,
+	                                    final Event event,
+	                                    final Context context,
+	                                    final String errorMessage,
+	                                    final Throwable cause) {
+		super(errorMessage, cause);
+		this.event = event;
+		this.state = state;
+		this.context = context;
+	}
 }
